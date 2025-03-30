@@ -1,0 +1,44 @@
+%! Author = vyleg
+%! Date = 23.11.2023
+
+% Preamble
+
+\documentclass{bmstu}
+\bibliography{parts/lib}
+
+
+\usepackage[final]{pdfpages}
+
+\begin{document}
+    \includepdf[pages=1]{titul_tz.pdf}
+
+
+\begin{essay}{}
+    Ключевые слова:
+    3Д--реконструкция,
+    построение карты глубин,
+    методы структурного освещения,
+    определения глубины из размытия (Depth from defocus),
+    стереосопоставления,
+    структуры из движения (Structure from motion),
+    комфортной генерации глубины (Comfortable Depth Generation).
+
+    Цель работы: классификация методов конвертации 2Д изображений в 3Д.
+
+    Данная научно--исследовательская работа включает
+    анализ предметной области,
+    описание основных подходов к решению задачи конвертации 2Д изображений в 3Д,
+    определение критериев сравнения,
+    и классификацию методов.
+\end{essay}
+
+    \def\contentsname{\hfill\centering СОДЕРЖАНИЕ\hfill}
+    \include{parts/02-contents}
+    \include{parts/03-introduction}
+    \include{parts/04-analit}
+    \include{parts/05-classification}
+    \include{parts/06-construct}
+    \include{parts/10-conclusion}
+    \include{parts/sources}
+    \include{parts/additional1}
+\end{document}
