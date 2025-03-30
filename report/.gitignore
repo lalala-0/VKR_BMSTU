@@ -5,6 +5,8 @@ venv/
 *.aux
 *.bbl
 *.blg
+*.bcf
+*.bkp
 *.toc
 *.out
 *.synctex.gz
