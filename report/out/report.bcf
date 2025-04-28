@@ -3571,10 +3571,18 @@
     <bcf:citekey order="24" intorder="1">stanowski2024stability</bcf:citekey>
     <bcf:citekey order="25" intorder="1">xie2025photometric</bcf:citekey>
     <bcf:citekey order="26" intorder="1">zhang2025review</bcf:citekey>
-    <bcf:citekey order="27" intorder="1">stereosop2</bcf:citekey>
-    <bcf:citekey order="27" intorder="2">sfm</bcf:citekey>
-    <bcf:citekey order="27" intorder="3">structLight</bcf:citekey>
-    <bcf:citekey order="27" intorder="4">ref1</bcf:citekey>
+    <bcf:citekey order="27" intorder="1">zhang2025review</bcf:citekey>
+    <bcf:citekey order="28" intorder="1">vis3</bcf:citekey>
+    <bcf:citekey order="29" intorder="1">zhang2025review</bcf:citekey>
+    <bcf:citekey order="30" intorder="1">vis2</bcf:citekey>
+    <bcf:citekey order="31" intorder="1">zaharov2011</bcf:citekey>
+    <bcf:citekey order="32" intorder="1">vis3</bcf:citekey>
+    <bcf:citekey order="33" intorder="1">istmin2024</bcf:citekey>
+    <bcf:citekey order="34" intorder="1">zaharov2014</bcf:citekey>
+    <bcf:citekey order="35" intorder="1">stereosop2</bcf:citekey>
+    <bcf:citekey order="35" intorder="2">sfm</bcf:citekey>
+    <bcf:citekey order="35" intorder="3">structLight</bcf:citekey>
+    <bcf:citekey order="35" intorder="4">ref1</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
