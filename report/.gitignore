@@ -10,3 +10,4 @@ venv/
 *.toc
 *.out
 *.synctex.gz
+/code/testing/datasets/
