@@ -43,4 +43,7 @@ def estimate_depth_midas(image, model_type="MiDaS_small"):
     # Нормализация
     depth_map = (depth_map - depth_map.min()) / (depth_map.max() - depth_map.min() + 1e-6)
 
+    # Инвертирование карты глубины
+    depth_map = 1.0 - depth_map
+
     return depth_map  # Инвертируем, чтобы ближние объекты были светлее

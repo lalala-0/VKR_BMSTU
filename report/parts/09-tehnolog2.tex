@@ -1,411 +1,30 @@
-\chapter{Технологический раздел}
-
-Технологический раздел посвящен практической реализации гибридного метода восстановления глубины из монокулярных изображений.
-В данном разделе рассматриваются ключевые аспекты программной реализации и тестирования разработанного решения.
-
-Особое внимание уделяется обоснованию выбора программных средств и библиотек, необходимых для эффективной реализации алгоритмов.
-
-Для объективной оценки качества реконструкции будут формализованы метрики: MAE, RMSE, REL и точность δ, позволяющие количественно оценивать эффективность метода на разных типах изображений.
-
-\section{Выбор программных средств}
-
-Для реализации методов восстановления глубины из монокулярных изображений был выбран язык программирования Python.
-Этот выбор обусловлен наличием в его экосистеме всех необходимых библиотек и инструментов для комплексного решения поставленной задачи.
-
-% TODO добавить ссылки на источники
-
-\begin{enumerate}
-    \item \textbf{Библиотеки обработки изображений:} OpenCV~\cite{opencv_library}, scikit-image~\cite{van2014scikit} и PIL/Pillow~\cite{clark2015pillow} — обеспечивают функционал для эффективной предобработки архивных фотографий, включая фильтрацию, сегментацию и работу с различными форматами файлов.
-    \item \textbf{Библиотеки машинного обучения:} PyTorch~\cite{paszke2019pytorch}, TensorFlow/Keras~\cite{abadi2016tensorflow} и scikit-learn~\cite{pedregosa2011scikit} — предоставляют инструменты для применения предобученной модели MiDaS для оценки глубины, что исключает необходимость обучения собственной нейронной сети и повышает эффективность разработки.
-    \item \textbf{Библиотеки научных вычислений:} NumPy~\cite{harris2020array}, SciPy~\cite{virtanen2020scipy}, Matplotlib~\cite{hunter2007matplotlib} и Open3D~\cite{zhou2018open3d} — обеспечивают эффективную работу с многомерными массивами, методы оптимизации, визуализацию результатов и обработку трехмерных данных.
-\end{enumerate}
-
-Таким образом, совокупность доступных в Python библиотек делает его достаточным инструментом для решения всех аспектов задачи восстановления глубины, включая предобработку данных, использование готовой модели MiDaS и визуализацию результатов.
-
-\section{Описание входных и выходных данных}
-
-Входными данными для алгоритмов восстановления глубины являются монокулярные цветные фотографии в различных форматах (JPEG, PNG, TIFF).
-
-Результатом работы алгоритмов восстановления глубины являются карта глубин в виде одноканальных изображений, где:
-
-\begin{itemize}
-    \item значение пикселя соответствует относительному расстоянию от камеры (меньшие значения — ближе к камере);
-    \item диапазон значений нормализован от 0 до 1 (или от 0 до 255 для 8-битных изображений);
-    \item разрешение карты глубины соответствует разрешению входного изображения.
-\end{itemize}
-
-
-\section{Реализация методов}
-
-% TODO добавить Листингиииииииииииии
-
-В листинге~\ref{lst:preproc} представлен код предварительной обработки входного изображения, включающий методы шумоподавления, нормализации освещения и коррекции артефактов, характерных для архивных фотографий.
-
-\begin{center}
-    \captionsetup{justification=raggedright,singlelinecheck=off}
-    \begin{lstlisting}[label=lst:preproc,caption=Предварительная обработка изображения]
-        import cv2
-        import numpy as np
-
-
-        def preprocess_archival_photo(image_path, brightness_boost=1.5, contrast_boost=1.2):
-            if isinstance(image_path, str):
-                image = cv2.imread(image_path)
-                if image is not None and len(image.shape) == 3:
-                    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-            else:
-                image = image_path.copy()
-
-            # Проверяем, является ли изображение цветным или оттенков серого
-            if len(image.shape) == 3:
-                gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
-            else:
-                gray = image.copy()
-
-            # Выявление и маскирование дефектов
-            blur = cv2.GaussianBlur(gray, (5, 5), 0)
-            diff = cv2.absdiff(gray, blur)
-            _, artifact_mask = cv2.threshold(diff, 25, 255, cv2.THRESH_BINARY)
-
-            kernel = np.ones((3, 3), np.uint8)
-            artifact_mask = cv2.morphologyEx(artifact_mask, cv2.MORPH_CLOSE, kernel)
-            artifact_mask = cv2.dilate(artifact_mask, kernel, iterations=1)
-
-            # Инпейнтинг для удаления дефектов
-            cleaned = cv2.inpaint(gray, artifact_mask.astype(np.uint8), 3, cv2.INPAINT_TELEA)
-
-            # Повышение контраста
-            clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
-            enhanced = clahe.apply(cleaned)
-
-            # Повышение яркости
-            mean_brightness = np.mean(enhanced)
-            target_brightness = 80
-
-            brightness_factor = min((target_brightness / (mean_brightness + 1e-6)), brightness_boost)
-            brightened = np.clip(enhanced * brightness_factor, 0, 255).astype(np.uint8)
-
-            # Улучшение контраста
-            alpha = min(contrast_boost, 1.1)
-            beta = 128 * (1 - alpha)
-            enhanced_contrast = np.clip(alpha * brightened + beta, 0, 255).astype(np.uint8)
-
-            # Билатеральная фильтрация для сохранения краев при устранении шума
-            denoised = cv2.bilateralFilter(enhanced_contrast, 7, 25, 25)
-
-            # Нормализация до [0, 1]
-            preprocessed = denoised.astype(np.float32) / 255.0
-
-            # Гамма-коррекция для улучшения контраста в средних тонах
-            gamma = 1.1
-            preprocessed = np.power(preprocessed, gamma)
-
-            return preprocessed, artifact_mask
-    \end{lstlisting}
-\end{center}
-
-Листинг~\ref{lst:depth_extract} иллюстрирует основной алгоритм извлечения глубины, который объединяет нейросетевой метод для первичной оценки глубины с последующим уточнением деталей.
-
-\begin{center}
-    \captionsetup{justification=raggedright,singlelinecheck=off}
-    \begin{lstlisting}[label=lst:depth_extract,caption=Извлечение глубины из подготовленного изображения]
-        import os
-import sys
-import numpy as np
-import cv2
-import time
-
-from scipy.ndimage import gaussian_filter, sobel
-
-# Добавляем путь к директории code
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-# Изменим импорты, чтобы они указывали на директории внутри code
-from preprocessing.image_cleaner import preprocess_archival_photo
-from preprocessing.segmentation import segment_by_color
-from reconstruction.lighting import estimate_lighting
-from reconstruction.albedo_shading import separate_albedo_shading
-from reconstruction.normals import estimate_normals
-from reconstruction.depth import recover_depth
-from reconstruction.midas_depth import estimate_depth_midas
-from postprocessing.refinement import postprocess_depth
-
-class ArchivalDepthReconstruction:
-    def __init__(self, iterations=200, lambda_smooth=0.15, regularization_weight=0.3,
-                 brightness_boost=1.5, contrast_boost=1.2, n_color_segments=6,
-                 method="segmentation", midas_model="MiDaS_small"):
-        self.iterations = iterations
-        self.lambda_smooth = lambda_smooth
-        self.regularization_weight = regularization_weight
-        self.brightness_boost = brightness_boost
-        self.contrast_boost = contrast_boost
-        self.n_color_segments = n_color_segments
-        self.method = method
-        self.midas_model = midas_model
-
-    def process_hybrid(self, image_path):
-
-        # Шаг 1: Получение базовой карты глубины
-        print("Получение базовой карты глубины через MiDaS...")
-        midas_results = self.process_midas(image_path)
-        base_depth = midas_results['depth_map']
-        preprocessed = midas_results['preprocessed']
-        artifact_mask = np.zeros_like(preprocessed, dtype=np.uint8)
-
-        # Шаг 2: Сегментация изображения
-        print("Сегментация изображения для детализации...")
-        segments_mask, bboxes = segment_by_color(
-            preprocessed,
-            self.n_color_segments
-        )
-
-        # Шаг 3: Инициализация карт деталей
-        detail_depth = np.zeros_like(base_depth)
-        detail_weight = np.zeros_like(base_depth)
-
-        # Шаг 4: Цикл по сегментам
-        print("Детализация каждого сегмента...")
-        for segment_id, bbox in bboxes.items():
-            y1, y2, x1, x2 = bbox
-
-            segment_mask = (segments_mask[y1:y2, x1:x2] == segment_id).astype(np.float32)
-
-            # Пропускаем слишком маленькие сегменты
-            if np.sum(segment_mask) < 100:
-                continue
-
-            segment_img = preprocessed[y1:y2, x1:x2].copy()
-            segment_base_depth = base_depth[y1:y2, x1:x2].copy()
-
-            # Оценка условий освещения
-            lighting_params = estimate_lighting(segment_img)
-
-            # Разделение альбедо и затенения
-            albedo, shading = separate_albedo_shading(segment_img, lighting_params)
-
-            # Оценка нормалей поверхности
-            normals, confidence_mask = estimate_normals(shading, lighting_params)
-
-            # Восстановление деталей
-            segment_details = recover_depth(
-                normals,
-                confidence_mask,
-                iterations=self.iterations // 2,
-                initial_depth=segment_base_depth
-            )
-
-            segment_weight = confidence_mask * np.abs(sobel(segment_img, axis=0)) * np.abs(sobel(segment_img, axis=1))
-            segment_weight = gaussian_filter(segment_weight, sigma=1.0)
-            if np.max(segment_weight) > 0:
-                segment_weight = segment_weight / np.max(segment_weight)
-            detail_depth[y1:y2, x1:x2] += segment_details * segment_mask * segment_weight
-            detail_weight[y1:y2, x1:x2] += segment_mask * segment_weight
-
-        # Шаг 5: Комбинация базовой карты и деталей
-        detail_weight = np.maximum(detail_weight, 1e-6)
-        detail_depth = detail_depth / detail_weight
-
-        alpha_base = 0.7
-        alpha_map = alpha_base - (detail_weight * 0.4)
-        alpha_map = np.clip(alpha_map, 0.3, 0.9)
-
-        final_depth = alpha_map * base_depth + (1 - alpha_map) * detail_depth
-
-
-        # Формирование результатов
-        results = {
-            'preprocessed': preprocessed,
-            'segments_mask': segments_mask,
-            'depth_map': base_depth,
-            'detail_depth': detail_depth,
-            'detail_weight': detail_weight,
-            'final_depth': final_depth,
-            'bboxes': bboxes,
-        }
-
-        return results
-    \end{lstlisting}
-\end{center}
-
-В листинге~\ref{lst:segmentation} представлен код сегментации изображения, позволяющий выделить различные объекты сцены для их дальнейшей раздельной обработки методом Shape From Shading.
-
-\begin{center}
-    \captionsetup{justification=raggedright,singlelinecheck=off}
-    \begin{lstlisting}[label=lst:segmentation,caption=Сегментация изображения]
-        import cv2
-import numpy as np
-from skimage.measure import regionprops
-from sklearn.cluster import KMeans
-
-
-def segment_by_color(img, n_color_segments=6):
-    # Преобразование изображения в цветное
-    if len(img.shape) == 2:
-        image_for_cluster = np.stack([img] * 3, axis=2)
-    else:
-        image_for_cluster = img.copy()
-
-    pixels = image_for_cluster.reshape(-1, 3)
-
-    # Группировка пикселей по цветам
-    kmeans = KMeans(n_clusters=n_color_segments, random_state=42, n_init=10)
-    labels = kmeans.fit_predict(pixels)
-
-    segmented = labels.reshape(img.shape[:2])
-
-    h, w = segmented.shape[:2]
-    bboxes = {}
-
-    # Цикл по цветовым сегментам
-    for label in range(n_color_segments):
-        # Создание бинарной маски для текущего цвета
-        mask = (segmented == label).astype(np.uint8)
-
-        # Поиск связных компонентов
-        num_labels, labels_img = cv2.connectedComponents(mask)
-
-        for region_id in range(1, num_labels):
-            region_mask = (labels_img == region_id).astype(np.uint8)
-
-            # Получение прямоугольной ограничивающей рамки
-            props = regionprops(region_mask)
-            if not props:
-                continue
-
-            y1, x1, y2, x2 = props[0].bbox
-
-            margin = 5
-            y1 = max(0, y1 - margin)
-            y2 = min(h, y2 + margin)
-            x1 = max(0, x1 - margin)
-            x2 = min(w, x2 + margin)
-
-            # Если область слишком маленькая, она пропускается
-            if (y2 - y1) < 20 or (x2 - x1) < 20:
-                continue
-
-            # Создание уникального идентификатора для этого прямоугольного сегмента
-            segment_id = label * 1000 + region_id
-
-            segmented[y1:y2, x1:x2][region_mask[y1:y2, x1:x2] > 0] = segment_id
-
-            # Сохранение ограничивающей рамки
-            bboxes[segment_id] = (y1, y2, x1, x2)
-
-    return segmented, bboxes
-
-    \end{lstlisting}
-\end{center}
-
-Листинг~\ref{lst:light_estimation} представляет реализацию алгоритма оценки параметров освещения сцены, необходимых для корректного применения метода Shape from Shading.
-
-\begin{center}
-    \captionsetup{justification=raggedright,singlelinecheck=off}
-    \begin{lstlisting}[label=lst:light_estimation,caption=Оценка освещения]
-import cv2
-import numpy as np
-
-
-def estimate_lighting(image):
-    hist = cv2.calcHist([image * 255], [0], None, [256], [0, 256])
-    hist_normalized = hist / (image.shape[0] * image.shape[1])
-    brightness_mean = np.mean(image)
-    brightness_std = np.std(image)
-
-    # Вычисляем градиенты
-    grad_x = cv2.Sobel(image, cv2.CV_32F, 1, 0, ksize=5)
-    grad_y = cv2.Sobel(image, cv2.CV_32F, 0, 1, ksize=5)
-    gradient_magnitude = np.sqrt(grad_x ** 2 + grad_y ** 2)
-
-    # Определяем области с постоянным освещением
-    smooth_regions = gradient_magnitude < np.percentile(gradient_magnitude, 25)
-
-    # Оцениваем направление света по градиентам
-    avg_grad_x = np.mean(grad_x)
-    avg_grad_y = np.mean(grad_y)
-
-    light_x = -avg_grad_x
-    light_y = -avg_grad_y
-    light_z = 1.0
-
-    light_direction = np.array([light_x, light_y, light_z])
-    norm = np.linalg.norm(light_direction)
-    if norm > 0:
-        light_direction = light_direction / norm
-
-    lighting_params = {
-        'direction': light_direction,
-        'brightness_mean': brightness_mean,
-        'brightness_std': brightness_std,
-        'hist': hist_normalized,
-        'smooth_regions': smooth_regions
-    }
-
-    return lighting_params
-
-    \end{lstlisting}
-\end{center}
-
-В листинге~\ref{lst:albedo_separation} представлен код разделения альбедо и затенения метода Shape from Shading, позволяющий отделить собственные цвета поверхностей от эффектов освещения.
-
-\begin{center}
-    \captionsetup{justification=raggedright,singlelinecheck=off}
-    \begin{lstlisting}[label=lst:albedo_separation,caption=Разделение альбедо и затенения]
-# Содержимое файла albedo_separation.py
-# Код разделения альбедо и затенения
-    \end{lstlisting}
-\end{center}
-
-Листинг~\ref{lst:normals_estimation} содержит код вычисления нормалей к поверхности на основе полученного разделения альбедо и затенения.
-
-\begin{center}
-    \captionsetup{justification=raggedright,singlelinecheck=off}
-    \begin{lstlisting}[label=lst:normals_estimation,caption=Оценка нормалей]
-# Содержимое файла normals_estimation.py
-# Код оценки нормалей
-    \end{lstlisting}
-\end{center}
-
-Заключительный этап обработки представлен в листинге~\ref{lst:depth_integration} --- алгоритм интеграции поля нормалей для получения итоговой карты глубины с высоким уровнем детализации поверхностей.
-
-\begin{center}
-    \captionsetup{justification=raggedright,singlelinecheck=off}
-    \begin{lstlisting}[label=lst:depth_integration,caption=Восстановление карты глубин по нормалям]
-# Содержимое файла depth_integration.py
-# Код восстановления карты глубин по нормалям
-    \end{lstlisting}
-\end{center}
-
-
-
-
 
 \section{Метрики оценки качества реконструкции глубины}
 
 % TODO добавить ссылки на источники
 
-\subsection{Абсолютная средняя ошибка (MAE)}
+\textbf{Абсолютная средняя ошибка (MAE)}
 \begin{equation}
 \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |d_{i}^{\text{pred}} - d_{i}^{\text{gt}}|
 \end{equation}
 
 MAE представляет собой среднее абсолютное отклонение предсказанной глубины от эталонной. Эта метрика менее чувствительна к выбросам по сравнению с RMSE и позволяет выявлять систематические ошибки в предсказании глубины~\cite{zhang2025review}.
 
-\subsection{Среднеквадратичная ошибка (RMSE)}
+\textbf{Среднеквадратичная ошибка (RMSE)}
 \begin{equation}
 \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (d_{i}^{\text{pred}} - d_{i}^{\text{gt}})^2}
 \end{equation}
 
 RMSE придаёт больший вес крупным ошибкам и является стандартной метрикой для оценки точности методов оценки глубины~\cite{vis3}. Благодаря своей чувствительности к выбросам, данная метрика эффективна при оценке методов, где критично минимизировать значительные отклонения.
 
-\subsection{Относительная абсолютная ошибка (REL)}
+\textbf{Относительная абсолютная ошибка (REL)}
 \begin{equation}
 \text{REL} = \frac{1}{n} \sum_{i=1}^{n} \frac{|d_{i}^{\text{pred}} - d_{i}^{\text{gt}}|}{d_{i}^{\text{gt}}}
 \end{equation}
 
 REL учитывает относительную величину ошибки, что особенно важно при работе с объектами, находящимися на разном расстоянии от камеры. Эта метрика предпочтительна при оценке качества реконструкции исторических объектов, где точная ш��ала глубины может быть неизвестна~\cite{zhang2025review}.
 
-\subsection{Точность $\delta$}
+\textbf{Точность $\delta$}
 \begin{equation}
 \delta_{k} = \frac{1}{n} \sum_{i=1}^{n} \mathbb{I}\left[\max\left(\frac{d_{i}^{\text{pred}}}{d_{i}^{\text{gt}}}, \frac{d_{i}^{\text{gt}}}{d_{i}^{\text{pred}}}\right) < 1.25^k\right]
 \end{equation}
@@ -417,17 +36,11 @@ REL учитывает относительную величину ошибки,
 
 \section{Тестирование}
 
-Целью тестирования является верификация корректности функционирования разработанного гибридного метода восстановления глубины, а также оценка его устойчивости к различным эффектам деградации, характерным для исторических фотоматериалов.
-
-Фундаментальной проблемой при проведении подобного тестирования выступает отсутствие достоверных эталонных данных о глубине для архивных фотографий, что исключает возможность прямой валидации точности реконструкции.
-
-Для преодоления данного ограничения был сформирован комплексный методологический подход, основанный на использовании современных датасетов, снабженных верифицированными картами глубины. К изображениям из этих наборов применяются алгоритмы искусственного старения, моделирующие типичные дефекты исторических фотоматериалов. Данная методика обеспечивает возможность количественного сопоставления результатов реконструкции с эталонными данными и объективной оценки качества восстановления.
-
-Предложенный подход позволяет проводить валидацию алгоритма в строго контролируемых условиях и идентифицировать потенциальные проблемные аспекты при обработке исторических фотографических материалов.
+Ввиду отсутствия эталонных данных о глубине для архивных фотографий, разработан методологический подход с использованием современных датасетов с верифицированными картами глубины и алгоритмов искусственного старения, позволяющий количественно оценивать результаты реконструкции в контролируемых условиях.
 
 \subsection{Описание тестового набора}
 
-Для проведения тестирования были выбраны три репрезентативных датасета, обеспечивающих разнообразие тестовых сцен.
+Для проведения тестирования были выбраны три датасета, обеспечивающих разнообразие тестовых сцен.
 
 % TODO добавить ссылки на источники датасетов и допустимых значений метрик
 
@@ -443,101 +56,71 @@ REL учитывает относительную величину ошибки,
 
 Для имитации состаривания изображений был разработан программный модуль, реализующий следующие эффекты с параметрически задаваемой интенсивностью:
 
-\begin{enumerate}
-    \item \textbf{Сепия} — преобразование RGB в тонированное монохромное изображение (интенсивность 0.0-1.0).
-    \item \textbf{Виньетирование} — затемнение краев изображения (радиус 0.5-0.9, интенсивность 0.2-0.8).
-    \item \textbf{Шум и зернистость} — добавление шума, имитирующего фотопленку (плотность 0.01-0.5).
-    \item \textbf{Выцветание} — снижение контраста и насыщенности (интенсивность 0.1-0.8).
-    \item \textbf{Случайные пятна и царапины} — добавление локальных дефектов (плотность 0.01-0.3).
-\end{enumerate}
+\begin{itemize}
+    \item сепия — преобразование RGB в тонированное монохромное изображение (интенсивность 0.0-1.0),
+    \item виньетирование — затемнение краев изображения (радиус 0.5-0.9, интенсивность 0.2-0.8),
+    \item шум и зернистость — добавление шума, имитирующего фотопленку (плотность 0.01-0.5),
+    \item выцветание} — снижение контраста и насыщенности (интенсивность 0.1-0.8),
+    \item случайные пятна и царапины — добавление локальных дефектов (плотность 0.01-0.3).
+\end{itemize}
 
 \subsubsection{Классы эквивалентности}
 
-\begin{enumerate}
-    \item \textbf{Оригинальные изображения (без эффектов старения)}
-    \begin{itemize}
-        \item \textit{Тестовый набор:} по 50 изображений из каждого датасета
-        \item \textit{Ожидаемые метрики:}
-        \begin{itemize}
-            \item MAE: 0.28-0.35
-            \item RMSE: 0.55-0.70
-            \item REL: 0.12-0.16
-            \item $\delta_1$: 0.75-0.90
-        \end{itemize}
-    \end{itemize}
-
-    \item \textbf{Изображения со средними эффектами старения (интенсивность 0.3-0.6)}
-    \begin{itemize}
-        \item \textit{Тестовый набор:} по 50 изображений из каждого датасета с умеренным состариванием
-        \item \textit{Ожидаемые метрики:}
-        \begin{itemize}
-            \item MAE: 0.30-0.42
-            \item RMSE: 0.61-0.88
-            \item REL: 0.13-0.19
-            \item $\delta_1$: 0.65-0.80
-        \end{itemize}
-    \end{itemize}
-
-    \item \textbf{Изображения с сильными эффектами старения (интенсивность 0.6-0.9)}
-    \begin{itemize}
-        \item \textit{Тестовый набор:} по 50 изображений из каждого датасета с сильным состариванием
-        \item \textit{Ожидаемые метрики:}
-        \begin{itemize}
-            \item MAE: 0.34-0.49
-            \item RMSE: 0.69-1.02
-            \item REL: 0.14-0.22
-            \item $\delta_1$: 0.55-0.70
-        \end{itemize}
-    \end{itemize}
-
-    \item \textbf{Негативный тест: экстремально низкое разрешение}
-    \begin{itemize}
-        \item \textit{Тестовый набор:} 50 изображений с разрешением менее 100×100 пикселей
-        \item \textit{Ожидаемые метрики:}
-        \begin{itemize}
-            \item MAE: >0.51
-            \item RMSE: >1.09
-            \item REL: >0.22
-            \item $\delta_1$: <0.50
-        \end{itemize}
-    \end{itemize}
-
-    \item \textbf{Негативный тест: экстремальный уровень шума}
-    \begin{itemize}
-        \item \textit{Тестовый набор:} 50 изображений с SNR < 5 дБ
-        \item \textit{Ожидаемые метрики:}
-        \begin{itemize}
-            \item MAE: >0.51
-            \item RMSE: >1.09
-            \item REL: >0.22
-            \item $\delta_1$: <0.50
-        \end{itemize}
-    \end{itemize}
-
-    \item \textbf{Негативный тест: отсутствующие фрагменты}
-    \begin{itemize}
-        \item \textit{Тестовый набор:} 50 изображений с отсутствующими участками (>30\% площади)
-        \item \textit{Ожидаемые метрики:}
-        \begin{itemize}
-            \item MAE: >0.51
-            \item RMSE: >1.09
-            \item REL: >0.22
-            \item $\delta_1$: <0.50
-        \end{itemize}
-    \end{itemize}
-
-    \item \textbf{Негативный тест: искаженная геометрия}
-    \begin{itemize}
-        \item \textit{Тестовый набор:} 50 изображений с сильными деформациями перспективы
-        \item \textit{Ожидаемые метрики:}
-        \begin{itemize}
-            \item MAE: >0.51
-            \item RMSE: >1.09
-            \item REL: >0.22
-            \item $\delta_1$: <0.50
-        \end{itemize}
-    \end{itemize}
-\end{enumerate}
+\begin{table}[H]
+\centering
+\caption{Классы эквивалентности для тестирования метода восстановления глубины}
+\label{tab:equivalence-classes}
+\small
+\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+\hline
+\textbf{Класс эквивалентности} & \textbf{Тестовый набор} & \textbf{Ожидаемый результат} \\
+\hline
+Оригинальные изображения (без эффектов старения) & По 50 изображений из каждого датасета &
+ MAE: 0.28-0.35 \newline
+ RMSE: 0.55-0.70  \newline
+ REL: 0.12-0.16  \newline
+ $\delta_1$: 0.75-0.90 \\
+\hline
+Изображения со средними эффектами старения (интенсивность 0.3-0.6) & По 50 изображений из каждого датасета с умеренным состариванием &
+\parbox[t]{5cm}{
+    MAE: 0.30-0.42 \\
+    RMSE: 0.61-0.88 \\
+    REL: 0.13-0.19 \\
+    $\delta_1$: 0.65-0.80
+} \\
+\hline
+Изображения с сильными эффектами старения (интенсивность 0.6-0.9) & По 50 изображений из каждого датасета с сильным состариванием &
+ MAE: 0.34-0.49 \newline
+ RMSE: 0.69-1.02 \newline
+ REL: 0.14-0.22  \newline
+ $\delta_1$: 0.55-0.70 \\
+\hline
+Негативный тест: экстремально низкое разрешение & 50 изображений с разрешением менее 100×100 пикселей &
+ MAE: $>$0.51 \newline
+ RMSE: $>$1.09 \newline
+ REL: $>$0.22 \newline
+ $\delta_1$: $<$0.50 \\
+\hline
+Негативный тест: экстремальный уровень шума & 50 изображений с SNR $<$ 5 дБ &
+ MAE: $>$0.51 \newline
+ RMSE: $>$1.09 \newline
+ REL: $>$0.22 \newline
+ $\delta_1$: $<$0.50 \\
+\hline
+Негативный тест: отсутствующие фрагменты & 50 изображений с отсутствующими участками ($>$30\% площади) &
+ MAE: $>$0.51 \newline
+ RMSE: $>$1.09 \newline
+ REL: $>$0.22 \newline
+ $\delta_1$: $<$0.50 \\
+\hline
+Негативный тест: искаженная геометрия & 50 изображений с сильными деформациями перспективы &
+ MAE: $>$0.51 \newline
+ RMSE: $>$1.09 \newline
+ REL: $>$0.22 \newline
+ $\delta_1$: $<$0.50 \\
+\hline
+\end{tabular}
+\end{table}
 
 \subsection{Результаты тестирования}
 

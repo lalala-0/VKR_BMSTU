@@ -64,4 +64,7 @@ def recover_depth(normals, confidence_mask, iterations=200, initial_depth=None):
 
     depth_map = (depth_map - depth_map.min()) / (depth_map.max() - depth_map.min() + 1e-6)
 
+    # Инвертирование карты глубины
+    depth_map = 1.0 - depth_map
+
     return depth_map
