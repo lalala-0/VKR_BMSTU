@@ -1,0 +1,10 @@
+{
+    "overall_metrics": {},
+    "per_image_metrics": [],
+    "config": {
+        "method": "midas",
+        "dataset": "lightfield",
+        "sample_count": 3,
+        "time": 0.00099945068359375
+    }
+}

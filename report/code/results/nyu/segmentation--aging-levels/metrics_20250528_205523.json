@@ -1,0 +1,10 @@
+{
+    "overall_metrics": {},
+    "per_image_metrics": [],
+    "config": {
+        "method": "segmentation--aging-levels",
+        "dataset": "nyu",
+        "sample_count": 3,
+        "time": 0.08052706718444824
+    }
+}

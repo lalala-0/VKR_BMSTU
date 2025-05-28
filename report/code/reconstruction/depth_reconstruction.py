@@ -32,10 +32,10 @@ class ArchivalDepthReconstruction:
         self.method = method
         self.midas_model = midas_model
 
-    def process_segmentation(self, image_path):
+    def process_segmentation(self, image_array):
         # Предобработка изображения
         preprocessed, artifact_mask = preprocess_archival_photo(
-            image_path,
+            image_array,
             self.brightness_boost,
             self.contrast_boost
         )
@@ -117,14 +117,13 @@ class ArchivalDepthReconstruction:
 
         return results
 
-    def process_midas(self, image_path):
+    def process_midas(self, image_array):
         # Предобработка изображения
         preprocessed, artifact_mask = preprocess_archival_photo(
-            image_path,
+            image_array,
             self.brightness_boost,
             self.contrast_boost
         )
-
         # Получаем сегменты для визуализации
         segments_mask, bboxes = segment_by_color(
             preprocessed,
@@ -159,7 +158,7 @@ class ArchivalDepthReconstruction:
 
         return results
 
-    def process_hybrid(self, image_path):
+    def process_hybrid(self, image_array):
         """
         Гибридный метод: основная карта глубин из MiDaS + детализация через сегментацию
         """
@@ -168,7 +167,7 @@ class ArchivalDepthReconstruction:
 
         # Шаг 1: Получаем базовую карту глубины с помощью MiDaS
         print("Получение базовой карты глубины через MiDaS...")
-        midas_results = self.process_midas(image_path)
+        midas_results = self.process_midas(image_array)
         base_depth = midas_results['depth_map']
         preprocessed = midas_results['preprocessed']
         artifact_mask = np.zeros_like(preprocessed, dtype=np.uint8)
@@ -237,17 +236,27 @@ class ArchivalDepthReconstruction:
         # Нормализуем детали
         detail_depth = detail_depth / detail_weight
 
-        # Адаптивное смешивание базовой карты и деталей
+        # # Адаптивное смешивание базовой карты и деталей
+        # # Параметр альфа: высокий вес для базовой карты, но на участках с высокой уверенностью
+        # # в деталях повышаем их влияние
+        # alpha_base = 0.7  # Вес базовой карты MiDaS (изменяемый параметр)
+        # alpha_map = alpha_base - (detail_weight * 0.4)  # Уменьшаем вес MiDaS там, где есть хорошие детали
+        # alpha_map = np.clip(alpha_map, 0.3, 0.9)  # Ограничиваем диапазон влияния
+        #
+        # # Комбинируем карты глубины, позволяя деталям только "приближать" объекты
+        # depth_diff = detail_depth - base_depth  # Разница между деталями и базой
+        # positive_diff = np.maximum(0, depth_diff)  # Оставляем только положительные разницы
+        # final_depth = base_depth + (1 - alpha_map) * positive_diff  # Добавляем детали к базовой карте
+        #
+
         # Параметр альфа: высокий вес для базовой карты, но на участках с высокой уверенностью
         # в деталях повышаем их влияние
         alpha_base = 0.7  # Вес базовой карты MiDaS (изменяемый параметр)
         alpha_map = alpha_base - (detail_weight * 0.4)  # Уменьшаем вес MiDaS там, где есть хорошие детали
         alpha_map = np.clip(alpha_map, 0.3, 0.9)  # Ограничиваем диапазон влияния
 
-        # Комбинируем карты глубины, позволяя деталям только "приближать" объекты
-        depth_diff = detail_depth - base_depth  # Разница между деталями и базой
-        positive_diff = np.maximum(0, depth_diff)  # Оставляем только положительные разницы
-        final_depth = base_depth + (1 - alpha_map) * positive_diff  # Добавляем детали к базовой карте
+        # Комбинируем карты глубины
+        final_depth = alpha_map * base_depth + (1 - alpha_map) * detail_depth
 
         # Постобработка
         final_depth, model_3d = postprocess_depth(final_depth, preprocessed, artifact_mask)
@@ -285,5 +294,37 @@ class ArchivalDepthReconstruction:
         processing_time = time.time() - start_time
         results['processing_time'] = processing_time
         print(f"Обработка завершена за {processing_time:.2f} секунд")
+
+        return results
+
+    def process_numpy(self, image_array):
+        """
+        Обрабатывает изображение, переданное в виде NumPy массива.
+
+        Parameters:
+        -----------
+        image_array : numpy.ndarray
+            Изображение в формате numpy array (BGR или RGB)
+
+        Returns:
+        --------
+        dict
+            Словарь с результатами обработки
+        """
+        start_time = time.time()
+
+        # Обрабатываем временное изображение
+        if self.method == "segmentation":
+            results = self.process_segmentation(image_array)
+        elif self.method == "midas":
+            results = self.process_midas(image_array)
+        elif self.method == "hybrid":
+            results = self.process_hybrid(image_array)
+        else:
+            raise ValueError(f"Неизвестный метод: {self.method}")
+
+        processing_time = time.time() - start_time
+        results['processing_time'] = processing_time
+        print(f"Обработка массива NumPy завершена за {processing_time:.2f} секунд")
 
         return results

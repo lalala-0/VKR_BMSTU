@@ -1,0 +1,28 @@
+{
+    "overall_metrics": {
+        "mae": 0.1569399356842041,
+        "rmse": 0.215423583984375,
+        "rel": 1.9299434661865233,
+        "delta1": 0.05556725840530586,
+        "delta2": 0.05556725840530586,
+        "delta3": 0.05556725840530586
+    },
+    "per_image_metrics": [
+        {
+            "mae": 0.1569399356842041,
+            "rmse": 0.215423583984375,
+            "rel": 1.9299434661865233,
+            "delta1": 0.05556725840530586,
+            "delta2": 0.05556725840530586,
+            "delta3": 0.05556725840530586,
+            "image_id": 0,
+            "image_path": "./testing/datasets/lightfield\\boxes\\input_Cam005.png"
+        }
+    ],
+    "config": {
+        "method": "segmentation",
+        "dataset": "lightfield",
+        "sample_count": 1,
+        "time": 5.267313718795776
+    }
+}

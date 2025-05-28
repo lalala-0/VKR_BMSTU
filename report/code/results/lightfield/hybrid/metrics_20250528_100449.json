@@ -1,0 +1,10 @@
+{
+    "overall_metrics": {},
+    "per_image_metrics": [],
+    "config": {
+        "method": "hybrid",
+        "dataset": "lightfield",
+        "sample_count": 0,
+        "time": 0.0009989738464355469
+    }
+}

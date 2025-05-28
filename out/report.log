@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.14)  20 MAY 2025 14:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.6.14)  28 MAY 2025 20:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1627,35 +1627,30 @@ Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'russian'.
 
-(E:/VKR_BMSTU/out/report.aux (E:/VKR_BMSTU/out/parts/02-contents.aux)
-(E:/VKR_BMSTU/out/parts/03-introduction.aux)
-(E:/VKR_BMSTU/out/parts/10-research.aux)
-(E:/VKR_BMSTU/out/parts/11-conclusion.aux) (E:/VKR_BMSTU/out/parts/sources.aux)
-(E:/VKR_BMSTU/out/parts/additional1.aux))
+No file report.aux.
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 97.
-LaTeX Font Info:    ... okay on input line 97.
-LaTeX Info: Redefining \th on input line 97.
-
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 98.
+LaTeX Font Info:    ... okay on input line 98.
+LaTeX Info: Redefining \th on input line 98.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -1690,19 +1685,19 @@ LaTeX Info: Redefining \th on input line 97.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \microtypecontext on input line 97.
-Package microtype Info: Applying patch `item' on input line 97.
-Package microtype Info: Applying patch `toc' on input line 97.
-Package microtype Info: Applying patch `eqnum' on input line 97.
-Package microtype Info: Applying patch `footnote' on input line 97.
-Package microtype Info: Applying patch `verbatim' on input line 97.
+LaTeX Info: Redefining \microtypecontext on input line 98.
+Package microtype Info: Applying patch `item' on input line 98.
+Package microtype Info: Applying patch `toc' on input line 98.
+Package microtype Info: Applying patch `eqnum' on input line 98.
+Package microtype Info: Applying patch `footnote' on input line 98.
+Package microtype Info: Applying patch `verbatim' on input line 98.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 97.
+LaTeX Info: Redefining \showhyphens on input line 98.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -1787,16 +1782,13 @@ Package biblatex Info: Automatic encoding selection.
 \openout4 = `report.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'report.bbl' not found.
-
-No file report.bbl.
-Package biblatex Info: Reference section=0 on input line 97.
-Package biblatex Info: Reference segment=0 on input line 97.
-Package hyperref Info: Link coloring OFF on input line 97.
-(E:/VKR_BMSTU/out/report.out) (E:/VKR_BMSTU/out/report.out)
+Package biblatex Info: ... file 'report.bbl' found.
+ (./report.bbl)
+Package biblatex Info: Reference section=0 on input line 98.
+Package biblatex Info: Reference segment=0 on input line 98.
+Package hyperref Info: Link coloring OFF on input line 98.
 \@outlinefile=\write5
 \openout5 = `report.out'.
-
 
 (c:/texlive/2024/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
@@ -1807,83 +1799,29 @@ F (HO)
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
 
-pdfTeX warning: pdflatex.exe (file ./titul_tz.pdf): PDF inclusion: found PDF ve
-rsion <1.7>, but at most version <1.5> allowed
-<titul_tz.pdf, id=178, 597.53236pt x 845.05714pt>
-File: titul_tz.pdf Graphic file (type pdf)
-<use titul_tz.pdf>
-Package pdftex.def Info: titul_tz.pdf  used on input line 98.
-(pdftex.def)             Requested size: 597.5309pt x 845.05507pt.
-
-
-pdfTeX warning: pdflatex.exe (file ./titul_tz.pdf): PDF inclusion: found PDF ve
-rsion <1.7>, but at most version <1.5> allowed
-File: titul_tz.pdf Graphic file (type pdf)
-<use titul_tz.pdf>
-Package pdftex.def Info: titul_tz.pdf  used on input line 98.
-(pdftex.def)             Requested size: 597.5309pt x 845.05507pt.
-
-
-pdfTeX warning: pdflatex.exe (file ./titul_tz.pdf): PDF inclusion: found PDF ve
-rsion <1.7>, but at most version <1.5> allowed
-
-
-pdfTeX warning: pdflatex.exe (file ./titul_tz.pdf): PDF inclusion: found PDF ve
-rsion <1.7>, but at most version <1.5> allowed
-<titul_tz.pdf, id=181, page=1, 597.53236pt x 845.05714pt>
-File: titul_tz.pdf Graphic file (type pdf)
-<use titul_tz.pdf, page 1>
-Package pdftex.def Info: titul_tz.pdf , page1 used on input line 98.
-(pdftex.def)             Requested size: 597.5309pt x 845.05507pt.
-File: titul_tz.pdf Graphic file (type pdf)
-<use titul_tz.pdf, page 1>
-Package pdftex.def Info: titul_tz.pdf , page1 used on input line 98.
-(pdftex.def)             Requested size: 597.55824pt x 845.09375pt.
-File: titul_tz.pdf Graphic file (type pdf)
-<use titul_tz.pdf, page 1>
-Package pdftex.def Info: titul_tz.pdf , page1 used on input line 98.
-(pdftex.def)             Requested size: 597.55824pt x 845.09375pt.
-File: titul_tz.pdf Graphic file (type pdf)
-<use titul_tz.pdf, page 1>
-Package pdftex.def Info: titul_tz.pdf , page1 used on input line 98.
-(pdftex.def)             Requested size: 597.55824pt x 845.09375pt.
-
-
-File: titul_tz.pdf Graphic file (type pdf)
-<use titul_tz.pdf, page 1>
-Package pdftex.def Info: titul_tz.pdf , page1 used on input line 98.
-(pdftex.def)             Requested size: 597.55824pt x 845.09375pt.
-[1
-
-
- <./titul_tz.pdf>]
-
 LaTeX Font Warning: Font shape `T2A/cmr/m/n' in size <16> not available
-(Font)              size <17.28> substituted on input line 101.
+(Font)              size <17.28> substituted on input line 103.
 
 
 LaTeX Font Warning: Font shape `T2A/cmr/bx/n' in size <16> not available
-(Font)              size <17.28> substituted on input line 101.
+(Font)              size <17.28> substituted on input line 103.
 
 
-
-[2
-
-{c:/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2024/
-texmf-dist/fonts/enc/dvips/cm-super/cm-super-t2a.enc}]
-\openout2 = `parts/02-contents.aux'.
+LaTeX Warning: Reference `LastPage' on page 2 undefined on input line 103.
 
 
-(./parts/02-contents.tex (E:/VKR_BMSTU/out/report.toc
-LaTeX Font Info:    Trying to load font information for U+msa on input line 5.
+Package totcount Warning: Rerun to get correct total counts on input line 103.
 
+LaTeX Font Info:    Trying to load font information for U+msa on input line 103
+.
 (c:/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 (c:/texlive/2024/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 5.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 103
+.
 
 (c:/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1892,218 +1830,139 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 
-[3
+[2
 
 
-])
+{c:/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2024/
+texmf-dist/fonts/enc/dvips/cm-super/cm-super-t2a.enc}]
+\openout2 = `parts/02-contents.aux'.
+
+
+(./parts/02-contents.tex
+No file report.toc.
 \tf@toc=\write6
 \openout6 = `report.toc'.
 
 )
 
-[4]
+[3
+
+
+]
 \openout2 = `parts/03-introduction.aux'.
 
  (./parts/03-introduction.tex
 
-[5
+[4
 
 
 
 
 ]
 
-LaTeX Warning: Citation 'stereosop2' on page 6 undefined on input line 51.
+[5])
 
-
-LaTeX Warning: Citation 'stereosop2' on page 6 undefined on input line 54.
-
-
-LaTeX Warning: Citation 'volumModel' on page 6 undefined on input line 57.
-
-
-LaTeX Warning: Citation 'kt' on page 6 undefined on input line 58.
-
-
-LaTeX Warning: Citation 'immersive' on page 6 undefined on input line 60.
-
-
-LaTeX Warning: Citation 'kt' on page 6 undefined on input line 63.
-
-
-LaTeX Warning: Citation 'med2' on page 6 undefined on input line 63.
-
-
-LaTeX Warning: Citation 'med3' on page 6 undefined on input line 63.
-
-
-LaTeX Warning: Citation 'kult1' on page 6 undefined on input line 64.
-
-
-LaTeX Warning: Citation 'kult2' on page 6 undefined on input line 64.
-
-
-
-[6]
-
-LaTeX Warning: Citation 'prom1' on page 7 undefined on input line 65.
-
-
-LaTeX Warning: Citation 'prom2' on page 7 undefined on input line 65.
-
-
-LaTeX Warning: Citation 'prom3' on page 7 undefined on input line 65.
-
-
-LaTeX Warning: Citation 'play1' on page 7 undefined on input line 66.
-
-
-LaTeX Warning: Citation 'play2' on page 7 undefined on input line 66.
-
-
-LaTeX Warning: Citation 'play3' on page 7 undefined on input line 66.
-
-
-LaTeX Warning: Citation 'vis1' on page 7 undefined on input line 67.
-
-
-LaTeX Warning: Citation 'vis2' on page 7 undefined on input line 67.
-
-
-LaTeX Warning: Citation 'vis3' on page 7 undefined on input line 67.
-
-)
-
-[7] (./parts/04-analit.tex
+[6] (./parts/04-analit.tex
 {\cyrillictext \CYRG \cyrl \cyra \cyrv \cyra } 1.
 
-LaTeX Warning: Citation 'dfd' on page 8 undefined on input line 12.
+LaTeX Warning: Reference `pattern' on page 7 undefined on input line 26.
 
-
-LaTeX Warning: Citation 'zaharov2011' on page 8 undefined on input line 16.
-
-
-LaTeX Warning: Citation 'zaharov2014' on page 8 undefined on input line 16.
-
-<img/pattern.png, id=286, 782.925pt x 287.0725pt>
+<img/pattern.png, id=72, 782.925pt x 287.0725pt>
 File: img/pattern.png Graphic file (type png)
 <use img/pattern.png>
-Package pdftex.def Info: img/pattern.png  used on input line 33.
+Package pdftex.def Info: img/pattern.png  used on input line 31.
 (pdftex.def)             Requested size: 391.46155pt x 143.53589pt.
 
-LaTeX Warning: Citation 'structLight' on page 8 undefined on input line 34.
 
-
-
-[8
+[7
 
 
 
 ]
+
+LaTeX Warning: Reference `metod1' on page 8 undefined on input line 39.
+
+
 
 pdfTeX warning: pdflatex.exe (file ./img/metod1.pdf): PDF inclusion: found PDF 
 version <1.7>, but at most version <1.5> allowed
-<img/metod1.pdf, id=295, 360.38638pt x 324.25137pt>
+<img/metod1.pdf, id=85, 360.38638pt x 324.25137pt>
 File: img/metod1.pdf Graphic file (type pdf)
 <use img/metod1.pdf>
-Package pdftex.def Info: img/metod1.pdf  used on input line 45.
+Package pdftex.def Info: img/metod1.pdf  used on input line 43.
 (pdftex.def)             Requested size: 288.3095pt x 259.40144pt.
 
-LaTeX Warning: Citation 'structLight' on page 9 undefined on input line 46.
 
+[8 <./img/pattern.png> <./img/metod1.pdf>]
 
-LaTeX Warning: Citation 'structLight' on page 9 undefined on input line 50.
-
-
-
-[9 <./img/pattern.png> <./img/metod1.pdf>]
+[9]
 
 [10]
 
-LaTeX Warning: Citation 'hewiside' on page 11 undefined on input line 124.
-
-
-
 [11]
 
-LaTeX Warning: Citation 'dfd' on page 12 undefined on input line 126.
+LaTeX Warning: Reference `stereoparachema' on page 12 undefined on input line 1
+55.
 
 
-LaTeX Warning: Citation 'stereosop1' on page 12 undefined on input line 153.
-
-
-
-[12]
 
 pdfTeX warning: pdflatex.exe (file ./img/stereoparachema.pdf): PDF inclusion: f
 ound PDF version <1.7>, but at most version <1.5> allowed
-<img/stereoparachema.pdf, id=345, 336.29637pt x 181.6386pt>
+<img/stereoparachema.pdf, id=142, 336.29637pt x 181.6386pt>
 File: img/stereoparachema.pdf Graphic file (type pdf)
 <use img/stereoparachema.pdf>
-Package pdftex.def Info: img/stereoparachema.pdf  used on input line 161.
+Package pdftex.def Info: img/stereoparachema.pdf  used on input line 159.
 (pdftex.def)             Requested size: 504.44331pt x 272.4572pt.
 
-Overfull \hbox (20.74644pt too wide) in paragraph at lines 161--162
+Overfull \hbox (20.74644pt too wide) in paragraph at lines 159--160
  [][] 
  []
 
 
-LaTeX Warning: Citation 'stereosop2' on page 13 undefined on input line 162.
+
+[12 <./img/stereoparachema.pdf>]
+
+LaTeX Warning: Reference `stereopD' on page 13 undefined on input line 199.
+
+
+LaTeX Warning: Reference `stereopZ' on page 13 undefined on input line 202.
+
+
+LaTeX Warning: Reference `xyformula' on page 13 undefined on input line 202.
 
 
 
-[13 <./img/stereoparachema.pdf>]
-
-LaTeX Warning: Citation 'stereosop2' on page 14 undefined on input line 208.
-
-
-LaTeX Warning: Citation 'stereosop1' on page 14 undefined on input line 210.
-
-
+[13]
 
 [14]
 
-LaTeX Warning: Citation 'comf' on page 15 undefined on input line 219.
+LaTeX Warning: Reference `comf' on page 15 undefined on input line 251.
 
 
-
-[15]
 
 pdfTeX warning: pdflatex.exe (file ./img/comf.pdf): PDF inclusion: found PDF ve
 rsion <1.7>, but at most version <1.5> allowed
-<img/comf.pdf, id=384, 518.89856pt x 355.3275pt>
+<img/comf.pdf, id=188, 518.89856pt x 355.3275pt>
 File: img/comf.pdf Graphic file (type pdf)
 <use img/comf.pdf>
-Package pdftex.def Info: img/comf.pdf  used on input line 257.
+Package pdftex.def Info: img/comf.pdf  used on input line 255.
 (pdftex.def)             Requested size: 467.00438pt x 319.79178pt.
 
-LaTeX Warning: Citation 'comf' on page 16 undefined on input line 258.
 
+[15 <./img/comf.pdf>]
 
-
-[16 <./img/comf.pdf>]
+[16]
 
 [17]
 
-LaTeX Warning: Citation 'stanowski2024stability' on page 18 undefined on input 
-line 318.
+[18]) (./parts/05-classification.tex
+
+[19]
+
+LaTeX Warning: Reference `tab:methods_comparison' on page 20 undefined on input
+ line 39.
 
 
-
-[18]
-
-LaTeX Warning: Citation 'xie2025photometric' on page 19 undefined on input line
- 348.
-
-
-LaTeX Warning: Citation 'zhang2025review' on page 19 undefined on input line 35
-3.
-
-
-
-[19]) (./parts/05-classification.tex
-
-[20]
 Underfull \hbox (badness 10000) in paragraph at lines 63--63
 []|\T2A/cmr/bx/n/14.4 (+20) Метод
  []
@@ -2119,8 +1978,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 63--63
  []
 
 
-Underfull \hbox (badness 1953) in paragraph at lines 63--63
-[]|\T2A/cmr/bx/n/14.4 (+20) Shape from
+Underfull \hbox (badness 10000) in paragraph at lines 63--63
+[]|\T2A/cmr/bx/n/14.4 (+20) Стерео
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 63--63
+\T2A/cmr/bx/n/14.4 (+20) со-по-став-ле-
  []
 
 
@@ -2130,7 +1994,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 63--63
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 63--63
-[]|\T2A/cmr/bx/n/14.4 (+20) Comfortable
+[]|\T2A/cmr/bx/n/14.4 (-10) Comfortable
  []
 
 
@@ -2144,8 +2008,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 63--63
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 63--63
-[]|\T2A/cmr/m/n/14.4 (+20) Моно--
+Underfull \hbox (badness 2478) in paragraph at lines 63--63
+[]|\T2A/cmr/m/n/14.4 (+20) Тип ис-ход-ных
  []
 
 
@@ -2169,7 +2033,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 63--63
  []
 
 
-Overfull \hbox (11.0093pt too wide) in paragraph at lines 63--63
+Underfull \hbox (badness 10000) in paragraph at lines 63--63
+[]|\T2A/cmr/m/n/14.4 (+20) Моно--
+ []
+
+
+Overfull \hbox (5.31883pt too wide) in paragraph at lines 63--63
 []|\T2A/cmr/m/n/14.4 (-20) Дополнительная
  []
 
@@ -2189,7 +2058,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 63--63
  []
 
 
-Overfull \hbox (7.83144pt too wide) in paragraph at lines 63--63
+Overfull \hbox (10.67688pt too wide) in paragraph at lines 63--63
 []|\T2A/cmr/m/n/14.4 (-20) Взаиморасполо-
  []
 
@@ -2199,284 +2068,210 @@ Underfull \hbox (badness 10000) in paragraph at lines 63--63
  []
 
 
-Overfull \hbox (0.73955pt too wide) in paragraph at lines 63--63
-\T2A/cmr/m/n/14.4 (-20) реконструкции| 
- []
 
-
-Overfull \hbox (4.69612pt too wide) in paragraph at lines 63--63
-[]|\T2A/cmr/m/n/14.4 (-20) Реконструкция
- []
-
-
-Overfull \hbox (4.69612pt too wide) in paragraph at lines 63--63
-[]|\T2A/cmr/m/n/14.4 (-20) Реконструкция
- []
-
-
-Overfull \hbox (4.69612pt too wide) in paragraph at lines 63--63
-[]|\T2A/cmr/m/n/14.4 (-20) Реконструкция
- []
-
-
-Overfull \hbox (4.69612pt too wide) in paragraph at lines 63--63
-[]|\T2A/cmr/m/n/14.4 (-20) Реконструкция
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 63--63
-[]|\T2A/cmr/m/n/14.4 (+20) Генерация
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 63--63
-[]|\T2A/cmr/m/n/14.4 (+20) Генерация
- []
-
-
-Underfull \hbox (badness 3690) in paragraph at lines 63--63
-[]|\T2A/cmr/m/n/14.4 (+20) Локальные /
- []
-
-
-Underfull \hbox (badness 3690) in paragraph at lines 63--63
-[]|\T2A/cmr/m/n/14.4 (+20) Локальные /
- []
-
-
-Overfull \hbox (0.7472pt too wide) in paragraph at lines 63--63
-\T2A/cmr/m/n/14.4 (-20) автоматизации| 
- []
+[20]
+Overfull \vbox (0.98628pt too high) has occurred while \output is active []
 
 
 
 [21]
-Overfull \vbox (12.36848pt too high) has occurred while \output is active []
-
-
 
 [22]
 
 [23]
 
-[24]
+[24]) (./parts/06-construct.tex
 
 [25]
-
-[26]) (./parts/06-construct.tex
-
-[27
-
-]
 {\cyrillictext \CYRG \cyrl \cyra \cyrv \cyra } 2.
+
+LaTeX Warning: Reference `idef0-a0' on page 26 undefined on input line 12.
+
 
 
 pdfTeX warning: pdflatex.exe (file ./img/IDEFA0.pdf): PDF inclusion: found PDF 
 version <1.7>, but at most version <1.5> allowed
-<img/IDEFA0.pdf, id=477, 445.665pt x 234.8775pt>
+<img/IDEFA0.pdf, id=285, 445.665pt x 204.765pt>
 File: img/IDEFA0.pdf Graphic file (type pdf)
 <use img/IDEFA0.pdf>
 Package pdftex.def Info: img/IDEFA0.pdf  used on input line 16.
-(pdftex.def)             Requested size: 356.53249pt x 187.90225pt.
+(pdftex.def)             Requested size: 356.53249pt x 163.8122pt.
+
+LaTeX Warning: Reference `idef0-a1' on page 26 undefined on input line 24.
+
 
 
 pdfTeX warning: pdflatex.exe (file ./img/IDEFA1.pdf): PDF inclusion: found PDF 
 version <1.7>, but at most version <1.5> allowed
-<img/IDEFA1.pdf, id=479, 619.35388pt x 277.9986pt>
+<img/IDEFA1.pdf, id=286, 619.35388pt x 277.9986pt>
 File: img/IDEFA1.pdf Graphic file (type pdf)
 <use img/IDEFA1.pdf>
-Package pdftex.def Info: img/IDEFA1.pdf  used on input line 27.
+Package pdftex.def Info: img/IDEFA1.pdf  used on input line 28.
 (pdftex.def)             Requested size: 495.48378pt x 222.39917pt.
 
-Overfull \hbox (11.78691pt too wide) in paragraph at lines 27--28
+Overfull \hbox (11.78691pt too wide) in paragraph at lines 28--29
  [][] 
  []
 
 
 
-[28
+[26
 
  <./img/IDEFA0.pdf>]
 
+LaTeX Warning: Reference `idef0-a2' on page 27 undefined on input line 36.
+
+
+
 pdfTeX warning: pdflatex.exe (file ./img/IDEFA2.pdf): PDF inclusion: found PDF 
 version <1.7>, but at most version <1.5> allowed
-<img/IDEFA2.pdf, id=497, 651.39355pt x 189.8292pt>
+<img/IDEFA2.pdf, id=305, 651.39355pt x 189.8292pt>
 File: img/IDEFA2.pdf Graphic file (type pdf)
 <use img/IDEFA2.pdf>
-Package pdftex.def Info: img/IDEFA2.pdf  used on input line 39.
+Package pdftex.def Info: img/IDEFA2.pdf  used on input line 40.
 (pdftex.def)             Requested size: 521.11555pt x 151.86354pt.
 
-Overfull \hbox (37.41869pt too wide) in paragraph at lines 39--40
+Overfull \hbox (37.41869pt too wide) in paragraph at lines 40--41
  [][] 
  []
 
 
+LaTeX Warning: Reference `preobr' on page 27 undefined on input line 51.
 
-[29 <./img/IDEFA1.pdf> <./img/IDEFA2.pdf>]
+
+
+[27 <./img/IDEFA1.pdf> <./img/IDEFA2.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./img/preobr.pdf): PDF inclusion: found PDF 
 version <1.7>, but at most version <1.5> allowed
-<img/preobr.pdf, id=522, 555.99718pt x 832.06856pt>
+<img/preobr.pdf, id=330, 555.99718pt x 832.06856pt>
 File: img/preobr.pdf Graphic file (type pdf)
 <use img/preobr.pdf>
-Package pdftex.def Info: img/preobr.pdf  used on input line 53.
+Package pdftex.def Info: img/preobr.pdf  used on input line 55.
 (pdftex.def)             Requested size: 389.19537pt x 582.44402pt.
 
+LaTeX Warning: Reference `reconstr' on page 28 undefined on input line 61.
 
-[30 <./img/preobr.pdf>]
+
+
+[28 <./img/preobr.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./img/reconstr.pdf): PDF inclusion: found PD
 F version <1.7>, but at most version <1.5> allowed
-<img/reconstr.pdf, id=549, 788.9475pt x 1210.5225pt>
+<img/reconstr.pdf, id=357, 788.9475pt x 1210.5225pt>
 File: img/reconstr.pdf Graphic file (type pdf)
 <use img/reconstr.pdf>
-Package pdftex.def Info: img/reconstr.pdf  used on input line 63.
+Package pdftex.def Info: img/reconstr.pdf  used on input line 65.
 (pdftex.def)             Requested size: 473.37215pt x 726.3191pt.
 
 
-[31]
+[29]
 Overfull \vbox (22.08327pt too high) has occurred while \output is active []
 
 
 
-[32 <./img/reconstr.pdf>]
+[30 <./img/reconstr.pdf>]
+
+LaTeX Warning: Reference `segmentation' on page 31 undefined on input line 70.
+
+
 
 pdfTeX warning: pdflatex.exe (file ./img/segmentation.pdf): PDF inclusion: foun
 d PDF version <1.7>, but at most version <1.5> allowed
-<img/segmentation.pdf, id=577, 622.24469pt x 708.72775pt>
+<img/segmentation.pdf, id=382, 622.24469pt x 708.72775pt>
 File: img/segmentation.pdf Graphic file (type pdf)
 <use img/segmentation.pdf>
-Package pdftex.def Info: img/segmentation.pdf  used on input line 72.
+Package pdftex.def Info: img/segmentation.pdf  used on input line 74.
 (pdftex.def)             Requested size: 435.56831pt x 496.10603pt.
+
+LaTeX Warning: Reference `light' on page 31 undefined on input line 79.
+
 
 
 pdfTeX warning: pdflatex.exe (file ./img/light.pdf): PDF inclusion: found PDF v
 ersion <1.7>, but at most version <1.5> allowed
-<img/light.pdf, id=579, 787.98387pt x 982.63106pt>
+<img/light.pdf, id=383, 787.98387pt x 982.63106pt>
 File: img/light.pdf Graphic file (type pdf)
 <use img/light.pdf>
-Package pdftex.def Info: img/light.pdf  used on input line 81.
+Package pdftex.def Info: img/light.pdf  used on input line 83.
 (pdftex.def)             Requested size: 472.79396pt x 589.58319pt.
 
 
-[33 <./img/segmentation.pdf>]
+[31 <./img/segmentation.pdf>]
+
+LaTeX Warning: Reference `albedo' on page 32 undefined on input line 88.
+
+
 
 pdfTeX warning: pdflatex.exe (file ./img/albedo.pdf): PDF inclusion: found PDF 
 version <1.7>, but at most version <1.5> allowed
-<img/albedo.pdf, id=607, 486.85887pt x 617.4267pt>
+<img/albedo.pdf, id=409, 486.85887pt x 617.4267pt>
 File: img/albedo.pdf Graphic file (type pdf)
 <use img/albedo.pdf>
-Package pdftex.def Info: img/albedo.pdf  used on input line 90.
-(pdftex.def)             Requested size: 389.48763pt x 493.94203pt.
+Package pdftex.def Info: img/albedo.pdf  used on input line 92.
+(pdftex.def)             Requested size: 438.16893pt x 555.6789pt.
 
 
-[34 <./img/light.pdf>]
+[32 <./img/light.pdf>]
+
+LaTeX Warning: Reference `normals' on page 33 undefined on input line 97.
+
+
 
 pdfTeX warning: pdflatex.exe (file ./img/normals.pdf): PDF inclusion: found PDF
  version <1.7>, but at most version <1.5> allowed
-<img/normals.pdf, id=634, 505.89pt x 779.7933pt>
+<img/normals.pdf, id=437, 505.89pt x 779.7933pt>
 File: img/normals.pdf Graphic file (type pdf)
 <use img/normals.pdf>
-Package pdftex.def Info: img/normals.pdf  used on input line 99.
+Package pdftex.def Info: img/normals.pdf  used on input line 101.
 (pdftex.def)             Requested size: 404.71254pt x 623.8355pt.
 
 
-[35 <./img/albedo.pdf>]
+[33 <./img/albedo.pdf>]
+
+LaTeX Warning: Reference `depth' on page 34 undefined on input line 106.
+
+
 
 pdfTeX warning: pdflatex.exe (file ./img/depth.pdf): PDF inclusion: found PDF v
 ersion <1.7>, but at most version <1.5> allowed
-<img/depth.pdf, id=656, 454.57831pt x 615.25856pt>
+<img/depth.pdf, id=458, 454.57831pt x 615.25856pt>
 File: img/depth.pdf Graphic file (type pdf)
 <use img/depth.pdf>
-Package pdftex.def Info: img/depth.pdf  used on input line 108.
-(pdftex.def)             Requested size: 363.66313pt x 492.2075pt.
+Package pdftex.def Info: img/depth.pdf  used on input line 110.
+(pdftex.def)             Requested size: 340.93289pt x 461.44278pt.
 
 
-[36 <./img/normals.pdf>]
+[34 <./img/normals.pdf>]) (./parts/07-tehnolog1.tex
 
-[37 <./img/depth.pdf>]) (./parts/07-tehnolog1.tex
-
-[38]
+[35 <./img/depth.pdf>]
 {\cyrillictext \CYRG \cyrl \cyra \cyrv \cyra } 3.
 
-./parts/07-tehnolog1.tex:8: LaTeX Error: Unicode character Оґ (U+03B4)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.8 ...РєРё: MAE, RMSE, REL Рё С‚РѕС‡РЅРѕСЃС‚СЊ Оґ
-                                                  , РїРѕР·РІРѕР»СЏСЋС‰РёРµ Р...
-
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
-
-LaTeX Warning: Citation 'opencv_library' on page 39 undefined on input line 18.
-
-
-
-LaTeX Warning: Citation 'van2014scikit' on page 39 undefined on input line 18.
-
-
-LaTeX Warning: Citation 'clark2015pillow' on page 39 undefined on input line 18
-.
-
-
-LaTeX Warning: Citation 'paszke2019pytorch' on page 39 undefined on input line 
-19.
-
-
-LaTeX Warning: Citation 'abadi2016tensorflow' on page 39 undefined on input lin
-e 19.
-
-
-LaTeX Warning: Citation 'pedregosa2011scikit' on page 39 undefined on input lin
-e 19.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 19--20
-\T2A/cmr/m/n/14.4 (+20) TensorFlow/Keras [[]] и scikit-
+Underfull \hbox (badness 10000) in paragraph at lines 14--15
+[]\T2A/cmr/bx/n/14.4 (+20) Библиотеки ма-шин-но-го обу-че-ния: \T2A/cmr/m/n/14.
+4 (+20) PyTorch [[]31[]],
  []
 
 
-Underfull \hbox (badness 3019) in paragraph at lines 19--20
-\T2A/cmr/m/n/14.4 (+20) learn [[]] ^^V предо-став-ля-ют ин-стру-мен-ты для
+Underfull \hbox (badness 3088) in paragraph at lines 15--16
+[]\T2A/cmr/bx/n/14.4 (+20) Библиотеки на-уч-ных вы-чис-ле-ний: \T2A/cmr/m/n/14.
+4 (+20) NumPy [[]34[]], SciPy [[]35[]],
  []
 
+) (./parts/08-listings.tex
 
-LaTeX Warning: Citation 'harris2020array' on page 39 undefined on input line 20
-.
-
-
-LaTeX Warning: Citation 'virtanen2020scipy' on page 39 undefined on input line 
-20.
-
-
-LaTeX Warning: Citation 'hunter2007matplotlib' on page 39 undefined on input li
-ne 20.
-
-
-LaTeX Warning: Citation 'zhou2018open3d' on page 39 undefined on input line 20.
+LaTeX Warning: Reference `lst:preproc' on page 36 undefined on input line 3.
 
 
 
-Underfull \hbox (badness 3568) in paragraph at lines 20--21
-\T2A/cmr/m/n/14.4 (+20) SciPy [[]], Matplotlib [[]] и
- []
+[36
 
-
-
-[39
-
-]) (./parts/08-listings.tex
+]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 7.
 LaTeX Font Info:    Trying to load font information for T2A+cmtt on input line 
 7.
-
-(c:/texlive/2024/texmf-dist/tex/latex/cyrillic/t2acmtt.fd
+ (c:/texlive/2024/texmf-dist/tex/latex/cyrillic/t2acmtt.fd
 File: t2acmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 )
 Package microtype Info: Loading generic protrusion settings for font family
@@ -2489,247 +2284,429 @@ Package csquotes Info: Input encoding change on input line 7.
 File: koi8-r.def 2022/06/11 v1.0e Input encoding file
 )
 
-[40]
+[37]
 
-[41]
-Package csquotes Info: Input encoding change on input line 72.
+LaTeX Warning: Reference `lst:depth_extract' on page 38 undefined on input line
+ 68.
+
+
+
+[38]
+Package csquotes Info: Input encoding change on input line 74.
  (c:/texlive/2024/texmf-dist/tex/latex/cyrillic/koi8-r.def
 File: koi8-r.def 2022/06/11 v1.0e Input encoding file
 )
 
+[39]
+
+[40]
+
+LaTeX Warning: Reference `lst:segmentation' on page 41 undefined on input line 
+164.
+
+Package csquotes Info: Input encoding change on input line 168.
+(c:/texlive/2024/texmf-dist/tex/latex/cyrillic/koi8-r.def
+File: koi8-r.def 2022/06/11 v1.0e Input encoding file
+)
+
+[41]
+
 [42]
+
+LaTeX Warning: Reference `lst:light_estimation' on page 43 undefined on input l
+ine 233.
+
+Package csquotes Info: Input encoding change on input line 237.
+(c:/texlive/2024/texmf-dist/tex/latex/cyrillic/koi8-r.def
+File: koi8-r.def 2022/06/11 v1.0e Input encoding file
+)
 
 [43]
 
+LaTeX Warning: Reference `lst:albedo_separation' on page 44 undefined on input 
+line 286.
+
+Package csquotes Info: Input encoding change on input line 290.
+(c:/texlive/2024/texmf-dist/tex/latex/cyrillic/koi8-r.def
+File: koi8-r.def 2022/06/11 v1.0e Input encoding file
+)
+
 [44]
-Package csquotes Info: Input encoding change on input line 166.
- (c:/texlive/2024/texmf-dist/tex/latex/cyrillic/koi8-r.def
+
+LaTeX Warning: Reference `lst:normals_estimation' on page 45 undefined on input
+ line 339.
+
+Package csquotes Info: Input encoding change on input line 343.
+(c:/texlive/2024/texmf-dist/tex/latex/cyrillic/koi8-r.def
 File: koi8-r.def 2022/06/11 v1.0e Input encoding file
 )
 
 [45]
-Package csquotes Info: Input encoding change on input line 235.
- (c:/texlive/2024/texmf-dist/tex/latex/cyrillic/koi8-r.def
-File: koi8-r.def 2022/06/11 v1.0e Input encoding file
-)
 
 [46]
 
-[47]
-Package csquotes Info: Input encoding change on input line 288.
- (c:/texlive/2024/texmf-dist/tex/latex/cyrillic/koi8-r.def
+LaTeX Warning: Reference `lst:depth_integration' on page 47 undefined on input 
+line 396.
+
+Package csquotes Info: Input encoding change on input line 400.
+(c:/texlive/2024/texmf-dist/tex/latex/cyrillic/koi8-r.def
 File: koi8-r.def 2022/06/11 v1.0e Input encoding file
 )
+
+[47]) (./parts/09-tehnolog2.tex
 
 [48]
-Package csquotes Info: Input encoding change on input line 341.
- (c:/texlive/2024/texmf-dist/tex/latex/cyrillic/koi8-r.def
-File: koi8-r.def 2022/06/11 v1.0e Input encoding file
-)
 
-[49]
-Package csquotes Info: Input encoding change on input line 398.
- (c:/texlive/2024/texmf-dist/tex/latex/cyrillic/koi8-r.def
-File: koi8-r.def 2022/06/11 v1.0e Input encoding file
-)
+LaTeX Warning: Reference `fig:depth_vis' on page 49 undefined on input line 13.
+
+
+<img/example.png, id=1006, 2297.58376pt x 1596.96625pt>
+File: img/example.png Graphic file (type png)
+<use img/example.png>
+Package pdftex.def Info: img/example.png  used on input line 18.
+(pdftex.def)             Requested size: 435.32422pt x 302.57387pt.
+
+
+[49 <./img/example.png>]
+
+LaTeX Warning: Reference `tab:test_classes' on page 50 undefined on input line 
+42.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--62
+[]|\T2A/cmr/m/n/14.4 (+20) Обработка от-сут-ству-ю-щих
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--64
+[]|\T2A/cmr/m/n/14.4 (+20) Обработка непод-дер-жи-ва-е-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--66
+[]|\T2A/cmr/m/n/14.4 (+20) Обработка по-вре-жден-ных
+ []
+
+
 
 [50]
 
-[51]) (./parts/09-tehnolog2.tex
-
-LaTeX Warning: Citation 'zhang2025review' on page 52 undefined on input line 11
-.
+LaTeX Warning: Reference `tab:testing_results' on page 51 undefined on input li
+ne 71.
 
 
-LaTeX Warning: Citation 'vis3' on page 52 undefined on input line 18.
-
-
-
-[52]
-
-./parts/09-tehnolog2.tex:25: LaTeX Error: Unicode character пїЅ (U+FFFD)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.25 ...ѕР±СЉРµРєС‚РѕРІ, РіРґРµ С‚РѕС‡РЅР°СЏ С€пїЅ
-                                                  пїЅР°Р»Р° РіР»СѓР±РёРЅС‹ Р...
-
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
-
-./parts/09-tehnolog2.tex:25: LaTeX Error: Unicode character пїЅ (U+FFFD)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.25 ...СЉРµРєС‚РѕРІ, РіРґРµ С‚РѕС‡РЅР°СЏ С€пїЅпїЅ
-                                                  Р°Р»Р° РіР»СѓР±РёРЅС‹ РјРѕ...
-
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
-
-LaTeX Warning: Citation 'zhang2025review' on page 53 undefined on input line 25
-.
-
-
-LaTeX Warning: Citation 'vis2' on page 53 undefined on input line 34.
-
-
-LaTeX Warning: Citation 'silberman2012indoor' on page 53 undefined on input lin
-e 48.
-
-
-LaTeX Warning: Citation 'saxena2009make3d' on page 53 undefined on input line 5
-0.
-
-
-
-[53{c:/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-
-LaTeX Warning: Citation 'mccormac2017scenenet' on page 54 undefined on input li
-ne 52.
-
-./parts/09-tehnolog2.tex:63: Extra }, or forgotten \endgroup.
-l.63     \item РІС‹С†РІРµС‚Р°РЅРёРµ}
-                                     вЂ” СЃРЅРёР¶РµРЅРёРµ РєРѕРЅС‚СЂР°СЃС‚Р°...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-Underfull \hbox (badness 1960) in paragraph at lines 110--110
-[]|\T2A/cmr/m/n/12 (+20) Негативный тест: от-сут-
+Underfull \hbox (badness 10000) in paragraph at lines 79--79
+[]|\T2A/cmr/bx/n/14.4 (+20) Класс
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 110--110
-\T2A/cmr/m/n/12 (+20) ству-ю-щи-ми участ-ка-ми
+Underfull \hbox (badness 10000) in paragraph at lines 79--79
+[]|\T2A/cmr/bx/n/14.4 (+20) Описание
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 79--79
+[]|\T2A/cmr/bx/n/14.4 (+20) Ожидаемый
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 79--79
+[]|\T2A/cmr/bx/n/14.4 (+20) Полученный
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 81--81
+[]|\T2A/cmr/m/n/14.4 (+20) Черно-белое
+ []
+
+
+Underfull \hbox (badness 1867) in paragraph at lines 81--81
+\T2A/cmr/m/n/14.4 (+20) изоб-ра-же-ние в
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 81--81
+[]|\T2A/cmr/m/n/14.4 (+20) Успешная
+ []
+
+
+Underfull \hbox (badness 2150) in paragraph at lines 81--81
+\T2A/cmr/m/n/14.4 (+20) за-груз-ка и ге-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 81--81
+\T2A/cmr/m/n/14.4 (+20) сге-не-ри-ро-ва-на,
+ []
+
+
+Overfull \hbox (4.619pt too wide) in paragraph at lines 81--82
+[]|\T2A/cmr/m/n/14.4 (-20) Пройден| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 83--83
+[]|\T2A/cmr/m/n/14.4 (+20) Черно-белое
+ []
+
+
+Underfull \hbox (badness 1867) in paragraph at lines 83--83
+\T2A/cmr/m/n/14.4 (+20) изоб-ра-же-ние в
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 83--83
+[]|\T2A/cmr/m/n/14.4 (+20) Успешная
+ []
+
+
+Underfull \hbox (badness 2150) in paragraph at lines 83--83
+\T2A/cmr/m/n/14.4 (+20) за-груз-ка и ге-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 83--83
+\T2A/cmr/m/n/14.4 (+20) сге-не-ри-ро-ва-на,
+ []
+
+
+Overfull \hbox (4.619pt too wide) in paragraph at lines 83--84
+[]|\T2A/cmr/m/n/14.4 (-20) Пройден| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 85--85
+\T2A/cmr/m/n/14.4 (+20) эф-фек-том се-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 85--85
+[]|\T2A/cmr/m/n/14.4 (+20) Успешная
+ []
+
+
+Underfull \hbox (badness 2150) in paragraph at lines 85--85
+\T2A/cmr/m/n/14.4 (+20) за-груз-ка и ге-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 85--85
+\T2A/cmr/m/n/14.4 (+20) сге-не-ри-ро-ва-на,
+ []
+
+
+Overfull \hbox (4.619pt too wide) in paragraph at lines 85--86
+[]|\T2A/cmr/m/n/14.4 (-20) Пройден| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--87
+[]|\T2A/cmr/m/n/14.4 (+20) Успешная
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--87
+\T2A/cmr/m/n/14.4 (+20) то-ма-ти-че-ским
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--87
+\T2A/cmr/m/n/14.4 (+20) мас-шта-би-ро-ва-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--87
+[]|\T2A/cmr/m/n/14.4 (+20) Изображение
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--87
+\T2A/cmr/m/n/14.4 (+20) мас-шта-би-ро-ва-
+ []
+
+
+Overfull \hbox (4.619pt too wide) in paragraph at lines 87--88
+[]|\T2A/cmr/m/n/14.4 (-20) Пройден| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 89--89
+[]|\T2A/cmr/m/n/14.4 (+20) Путь к несу-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 89--89
+\T2A/cmr/m/n/14.4 (+20) ще-ству-ю-ще-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 89--89
+\T2A/cmr/m/n/14.4 (+20) му фай-лу
+ []
+
+
+Overfull \hbox (12.66435pt too wide) in paragraph at lines 89--89
+\T2A/cmr/m/n/14.4 (-20) ('/nonexistent.jpg')| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 89--89
+[]|\T2A/cmr/m/n/14.4 (+20) Сообщение
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 89--89
+\T2A/cmr/m/n/14.4 (+20) об ошиб-ке с
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 89--89
+\T2A/cmr/m/n/14.4 (+20) ука-за-ни-ем на
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 89--89
+\T2A/cmr/m/n/14.4 (-17) '/nonexistent.jpg'
+ []
+
+
+Overfull \hbox (4.619pt too wide) in paragraph at lines 89--90
+[]|\T2A/cmr/m/n/14.4 (-20) Пройден| 
+ []
+
+
+Underfull \hbox (badness 1097) in paragraph at lines 91--91
+[]|\T2A/cmr/m/n/14.4 (+20) Путь к фай-лу
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--91
+[]|\T2A/cmr/m/n/14.4 (+20) Сообщение о
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--91
+\T2A/cmr/m/n/14.4 (+20) непод-дер-жи-ва-
+ []
+
+
+Underfull \hbox (badness 4291) in paragraph at lines 91--91
+\T2A/cmr/m/n/14.4 (+20) е-мом фор-ма-те
+ []
+
+
+Overfull \hbox (4.619pt too wide) in paragraph at lines 91--92
+[]|\T2A/cmr/m/n/14.4 (-20) Пройден| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 93--93
+[]|\T2A/cmr/m/n/14.4 (+20) Поврежденный
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 93--93
+[]|\T2A/cmr/m/n/14.4 (+20) Сообщение о
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 93--93
+\T2A/cmr/m/n/14.4 (+20) невоз-мож-но-сти
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 93--93
+\T2A/cmr/m/n/14.4 (+20) де-ко-ди-ро-ва-ния
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 93--93
+[]|\T2A/cmr/m/n/14.4 (+20) "Ошибка при
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 93--93
+\T2A/cmr/m/n/14.4 (+20) де-ко-ди-ро-ва-нии
+ []
+
+
+Overfull \hbox (4.619pt too wide) in paragraph at lines 93--94
+[]|\T2A/cmr/m/n/14.4 (-20) Пройден| 
  []
 
 
 
-[54]
-Underfull \hbox (badness 1960) in paragraph at lines 148--148
-[]|\T2A/cmr/m/n/12 (+20) Негативный тест: от-сут-
- []
+[51]
+Overfull \vbox (0.61398pt too high) has occurred while \output is active []
 
 
 
-[55]
+[52{c:/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}])
 
-./parts/09-tehnolog2.tex:160: LaTeX Error: Unicode character Оґ (U+03B4)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.160 ...С‹: MAE, RMSE, REL Рё С‚РѕС‡РЅРѕСЃС‚СЊ Оґ
-                                                  , С‡С‚Рѕ РїРѕР·РІРѕР»СЏРµС...
-
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
-
-./parts/09-tehnolog2.tex:165: LaTeX Error: Unicode character Оґ (U+03B4)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.165 ... (MAE: 0.412, RMSE: 0.897, REL: 0.194, Оґ
-                                                  в‚Ѓ: 0.625) РґРµРјРѕРЅСЃС‚...
-
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
-
-./parts/09-tehnolog2.tex:165: LaTeX Error: Unicode character в‚Ѓ (U+2081)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.165 ...AE: 0.412, RMSE: 0.897, REL: 0.194, Оґв‚Ѓ
-                                                  : 0.625) РґРµРјРѕРЅСЃС‚СЂР...
-
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
-
-
-[56])
-
-[57]
+[53]
 \openout2 = `parts/10-research.aux'.
 
  (./parts/10-research.tex
 {\cyrillictext \CYRG \cyrl \cyra \cyrv \cyra } 4.
 
 
-[58
+[54
 
 
 ]
 
+[55]
+
+LaTeX Warning: Reference `tab:degradation_levels' on page 56 undefined on input
+ line 58.
+
+
+
+[56]
+
+LaTeX Warning: Reference `tab:comparison-by-degradation' on page 57 undefined o
+n input line 128.
+
+
+LaTeX Warning: Reference `fig:comparison-by-degradation' on page 57 undefined o
+n input line 160.
+
+
+
+[57]
+
+[58]
+
+LaTeX Warning: Reference `fig:hybrid-degradation-effects' on page 59 undefined 
+on input line 214.
+
+
+
 [59]
 
-LaTeX Warning: Reference `tab:nyu_results' on page 60 undefined on input line 7
-6.
+./parts/10-research.tex:316: LaTeX Error: Unicode character Оґ (U+03B4)
+               not set up for use with LaTeX.
 
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.316 ...С‹: MAE, RMSE, REL Рё С‚РѕС‡РЅРѕСЃС‚СЊ Оґ
+                                                  , С‡С‚Рѕ РїРѕР·РІРѕР»СЏРµС...
 
-LaTeX Warning: Reference `tab:kitti_results' on page 60 undefined on input line
- 84.
-
-
-LaTeX Warning: Reference `fig:aging_effects' on page 60 undefined on input line
- 95.
-
-
-
-[60]
-
-LaTeX Warning: Reference `tab:aging_impact' on page 61 undefined on input line 
-99.
-
-
-LaTeX Warning: Reference `fig:visual_comparison' on page 61 undefined on input 
-line 110.
+You may provide a definition with
+\DeclareUnicodeCharacter 
 
 
 
-[61])
+[60])
 
-[62]
+[61]
 \openout2 = `parts/11-conclusion.aux'.
 
- (./parts/11-conclusion.tex
+ (./parts/11-conclusion.tex)
 
-LaTeX Warning: Citation 'stereosop2' on page 63 undefined on input line 8.
-
-
-LaTeX Warning: Citation 'sfm' on page 63 undefined on input line 8.
-
-
-LaTeX Warning: Citation 'structLight' on page 63 undefined on input line 8.
-
-
-LaTeX Warning: Citation 'ref1' on page 63 undefined on input line 8.
-
-)
-
-[63
+[62
 
 
 
@@ -2739,15 +2716,27 @@ LaTeX Warning: Citation 'ref1' on page 63 undefined on input line 8.
 
  (./parts/sources.tex
 
-LaTeX Warning: Empty bibliography on input line 4.
+[63
 
-)
-
-[64
 
 
 
 ]
+
+[64]
+
+[65]
+
+[66]
+Underfull \hbox (badness 1237) in paragraph at lines 4--4
+[]\T2A/cmr/m/it/14.4 (+20) В. В. Конь-ков\T2A/cmr/m/n/14.4 (+20) , \T2A/cmr/m/i
+t/14.4 (+20) А. Б. Замча-лов\T2A/cmr/m/n/14.4 (+20) , \T2A/cmr/m/it/14.4 (+20) 
+М. Г. Жа-биц-кий\T2A/cmr/m/n/14.4 (+20) . программно--
+ []
+
+)
+
+[67]
 \openout2 = `parts/additional1.aux'.
 
  (./parts/additional1.tex
@@ -2760,18 +2749,18 @@ l.2     \chapter{}
 РџР РР›РћР–Р•РќРР• \CYRA .
 )
 
-[65
+[68
 
 
 
 
 ] 
 enddocument/afterlastpage: lastpage setting LastPage.
-(E:/VKR_BMSTU/out/report.aux (E:/VKR_BMSTU/out/parts/02-contents.aux)
-(E:/VKR_BMSTU/out/parts/03-introduction.aux)
-(E:/VKR_BMSTU/out/parts/10-research.aux)
-(E:/VKR_BMSTU/out/parts/11-conclusion.aux) (E:/VKR_BMSTU/out/parts/sources.aux)
-(E:/VKR_BMSTU/out/parts/additional1.aux))
+(D:/VKR_BMSTU/out/report.aux (D:/VKR_BMSTU/out/parts/02-contents.aux)
+(D:/VKR_BMSTU/out/parts/03-introduction.aux)
+(D:/VKR_BMSTU/out/parts/10-research.aux)
+(D:/VKR_BMSTU/out/parts/11-conclusion.aux) (D:/VKR_BMSTU/out/parts/sources.aux)
+(D:/VKR_BMSTU/out/parts/additional1.aux))
  ***********
 LaTeX2e <2024-06-01> patch level 1
 L3 programming layer <2024-05-27>
@@ -2784,8 +2773,20 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Warning: There were undefined references.
 
-Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: A8FCE11AE612CC695FFD8B48D20FD272;11812.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `report.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `report.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  7869E165FA7014B6D47CEF0690300BE1;7790.
+
+Package lastpage Warning: Rerun to get the references right on input line 134.
+
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                report
@@ -2796,13 +2797,13 @@ Package logreq Info: Writing requests to 'report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 51910 strings out of 473600
- 1116857 string characters out of 5732737
- 2488002 words of memory out of 5000000
- 73083 multiletter control sequences out of 15000+600000
- 581274 words of font info for 184 fonts, out of 8000000 for 9000
+ 52661 strings out of 473600
+ 1139018 string characters out of 5732737
+ 2494134 words of memory out of 5000000
+ 73790 multiletter control sequences out of 15000+600000
+ 584138 words of font info for 191 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 126i,17n,129p,1199b,3209s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 126i,19n,129p,1199b,3209s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/tex
 live/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2024
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2024/texmf-di
@@ -2812,17 +2813,19 @@ c/amsfonts/cm/cmr12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmr8.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.
 pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
 <c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/
-texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb><c:/texlive/20
-24/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb><c:/texlive/2024/texmf-d
-ist/fonts/type1/public/cm-super/sfbx1728.pfb><c:/texlive/2024/texmf-dist/fonts/
-type1/public/cm-super/sfrm1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/publ
-ic/cm-super/sfrm1200.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-supe
-r/sfrm1440.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1200
-.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1440.pfb>
-Output written on E:/VKR_BMSTU/out/report.pdf (65 pages, 2387971 bytes).
+texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb><c:/texlive/20
+24/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb><c:/texlive/2024/texmf-d
+ist/fonts/type1/public/cm-super/sfbx1440.pfb><c:/texlive/2024/texmf-dist/fonts/
+type1/public/cm-super/sfbx1728.pfb><c:/texlive/2024/texmf-dist/fonts/type1/publ
+ic/cm-super/sfrm1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-supe
+r/sfrm1200.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1440
+.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfti1440.pfb><c:/t
+exlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb><c:/texlive/202
+4/texmf-dist/fonts/type1/public/cm-super/sftt1440.pfb>
+Output written on D:/VKR_BMSTU/out/report.pdf (67 pages, 4552593 bytes).
 PDF statistics:
- 1478 PDF objects out of 1728 (max. 8388607)
- 1285 compressed objects within 13 object streams
- 608 named destinations out of 1000 (max. 500000)
- 36287 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 1395 PDF objects out of 1440 (max. 8388607)
+ 1207 compressed objects within 13 object streams
+ 660 named destinations out of 1000 (max. 500000)
+ 40024 words of extra memory for PDF output out of 42996 (max. 10000000)
 

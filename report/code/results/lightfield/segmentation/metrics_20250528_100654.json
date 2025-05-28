@@ -1,0 +1,10 @@
+{
+    "overall_metrics": {},
+    "per_image_metrics": [],
+    "config": {
+        "method": "segmentation",
+        "dataset": "lightfield",
+        "sample_count": 0,
+        "time": 0.00099945068359375
+    }
+}

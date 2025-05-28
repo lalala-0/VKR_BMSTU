@@ -1,0 +1,25 @@
+{
+    "overall_metrics": {
+        "mae": 0.04112580716609955,
+        "rmse": 0.04937597811222076,
+        "rel": 0.8498867988586426
+    },
+    "per_image_metrics": [
+        {
+            "mae": 0.04112580716609955,
+            "rmse": 0.04937597811222076,
+            "rel": 0.8498867988586426,
+            "delta1": 0.0,
+            "delta2": 0.0,
+            "delta3": 0.0,
+            "image_id": 0,
+            "image_path": "./testing/datasets/lightfield\\boxes\\input_Cam005.png"
+        }
+    ],
+    "config": {
+        "method": "hybrid",
+        "dataset": "lightfield",
+        "sample_count": 1,
+        "time": 12.884273767471313
+    }
+}

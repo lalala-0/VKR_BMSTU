@@ -4,10 +4,12 @@ import numpy as np
 
 def preprocess_archival_photo(image_path, brightness_boost=1.5, contrast_boost=1.2):
     if isinstance(image_path, str):
+        print("Загрузка изображения из файла:", image_path)
         image = cv2.imread(image_path)
         if image is not None and len(image.shape) == 3:
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     else:
+        print("Использование переданного изображения в формате numpy array")
         image = image_path.copy()
 
     # Проверяем, является ли изображение цветным или оттенков серого
