@@ -1,0 +1,10 @@
+{
+    "overall_metrics": {},
+    "per_image_metrics": [],
+    "config": {
+        "method": "gibrid",
+        "dataset": "nyu",
+        "sample_count": 20,
+        "time": 0.5156545639038086
+    }
+}

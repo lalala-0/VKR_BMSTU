@@ -443,3 +443,105 @@ class ModelComparator:
         plot_aging_effects_comparison(self)
         # Строим графики с аналитикой по всем метрикам
         self.plot_all_metrics()
+
+    def plot_results(self, results_file=None):
+        """
+        Загружает результаты из файла и строит все графики
+
+        Parameters:
+        -----------
+        results_file : str, optional
+            Путь к файлу с результатами (по умолчанию - стандартный путь)
+        """
+        # Загружаем результаты, если они еще не загружены
+        if not self.results or results_file is not None:
+            if results_file is not None and results_file.endswith('.csv'):
+                loaded = self.load_results_from_csv(results_file)
+            else:
+                loaded = self.load_results(results_file)
+
+            if not loaded:
+                print(f"Ошибка: не удалось загрузить результаты из файла")
+                return
+            print(f"Результаты успешно загружены")
+
+        # Проверяем, есть ли данные по эффектам старения
+        effects_exist = False
+        for method in self.results:
+            for dataset in self.results[method]:
+                for key in self.results[method][dataset]:
+                    if isinstance(key, str) and key.startswith('effect_'):
+                        effects_exist = True
+                        break
+
+
+        # Если есть данные по эффектам старения, строим дополнительные графики
+        if effects_exist:
+            print("Построение графиков для эффектов старения...")
+            plot_aging_effects_comparison(self)
+        else:
+            print("Построение графиков для всех метрик...")
+            self.plot_all_metrics()
+
+        print(f"Все графики сохранены в директорию {self.output_dir}")
+
+    def load_results_from_csv(self, file_path):
+        """Загрузка результатов из CSV-файла"""
+        try:
+            import pandas as pd
+
+            # Проверяем, существует ли файл
+            if not os.path.exists(file_path):
+                print(f"Файл {file_path} не найден")
+                return False
+
+            # Загружаем CSV в DataFrame
+            df = pd.read_csv(file_path)
+
+            # Определяем формат CSV на основе заголовков
+            if all(col in df.columns for col in ['Метод', 'Датасет', 'Эффект', 'Интенсивность', 'Метрика', 'Значение']):
+                # Формат файла эффектов старения
+                for _, row in df.iterrows():
+                    method = row['Метод']
+                    dataset = row['Датасет']
+                    effect = row['Эффект']
+                    intensity = float(row['Интенсивность'])
+                    metric = row['Метрика'].lower()
+                    value = float(row['Значение'])
+
+                    # Формируем ключ эффекта и добавляем данные
+                    effect_key = f"effect_{effect}"
+                    if effect_key not in self.results[method][dataset]:
+                        self.results[method][dataset][effect_key] = {}
+
+                    if intensity not in self.results[method][dataset][effect_key]:
+                        self.results[method][dataset][effect_key][intensity] = {}
+
+                    self.results[method][dataset][effect_key][intensity][metric] = value
+
+            elif all(col in df.columns for col in ['Метод', 'Датасет', 'Уровень_старения', 'Метрика', 'Значение']):
+                # Формат файла уровней старения
+                for _, row in df.iterrows():
+                    method = row['Метод']
+                    dataset = row['Датасет']
+                    aging_level = int(row['Уровень_старения'])
+                    metric = row['Метрика'].lower()
+                    value = float(row['Значение'])
+
+                    if aging_level not in self.results[method][dataset]:
+                        self.results[method][dataset][aging_level] = {}
+
+                    self.results[method][dataset][aging_level][metric] = value
+
+            else:
+                print("Неподдерживаемый формат CSV файла. Ожидаемые форматы:")
+                print("1. Метод,Датасет,Эффект,Интенсивность,Метрика,Значение")
+                print("2. Метод,Датасет,Уровень_старения,Метрика,Значение")
+                return False
+
+            print(f"Данные успешно загружены из {file_path}")
+            return True
+
+        except Exception as e:
+            print(f"Ошибка при загрузке данных из CSV: {str(e)}")
+            return False

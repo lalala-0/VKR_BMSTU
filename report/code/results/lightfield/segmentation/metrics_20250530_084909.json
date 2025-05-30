@@ -1,0 +1,218 @@
+{
+    "overall_metrics": {
+        "mae": 1.0005335585308786,
+        "rmse": 1.2969970199788805,
+        "rel": 674.5315596878529,
+        "delta1": 0.2210546142072257,
+        "delta2": 0.3492276604282204,
+        "delta3": 0.4770405513140631
+    },
+    "per_image_metrics": [
+        {
+            "mae": 0.7710019946098328,
+            "rmse": 1.0510448217391968,
+            "rel": 0.8962520360946655,
+            "delta1": 0.37292274962281147,
+            "delta2": 0.5478839453375158,
+            "delta3": 0.6276091133085131,
+            "image_id": 0,
+            "image_path": "./testing/datasets/lightfield\\antinous\\input_Cam005.png"
+        },
+        {
+            "mae": 0.14625225961208344,
+            "rmse": 0.1753305345773697,
+            "rel": 2.2053117752075195,
+            "delta1": 0.22221212304833465,
+            "delta2": 0.41304611282797066,
+            "delta3": 0.6431456906825022,
+            "image_id": 1,
+            "image_path": "./testing/datasets/lightfield\\backgammon\\input_Cam005.png"
+        },
+        {
+            "mae": 0.4536628723144531,
+            "rmse": 0.5789728760719299,
+            "rel": 23.649005889892578,
+            "delta1": 0.28339916693579775,
+            "delta2": 0.3972871587210891,
+            "delta3": 0.5446633377222402,
+            "image_id": 2,
+            "image_path": "./testing/datasets/lightfield\\boardgames\\input_Cam005.png"
+        },
+        {
+            "mae": 1.76323401927948,
+            "rmse": 2.4442272186279297,
+            "rel": 681.7583618164062,
+            "delta1": 0.08645426226676986,
+            "delta2": 0.1535848839366241,
+            "delta3": 0.20550477494131267,
+            "image_id": 3,
+            "image_path": "./testing/datasets/lightfield\\boxes\\input_Cam005.png"
+        },
+        {
+            "mae": 0.7876027226448059,
+            "rmse": 0.9043058156967163,
+            "rel": 1.8202359676361084,
+            "delta1": 0.0447298788676586,
+            "delta2": 0.12689643251293098,
+            "delta3": 0.30225244990492905,
+            "image_id": 4,
+            "image_path": "./testing/datasets/lightfield\\cotton\\input_Cam005.png"
+        },
+        {
+            "mae": 0.9916998744010925,
+            "rmse": 1.2053070068359375,
+            "rel": 1.55290687084198,
+            "delta1": 0.1766983695652174,
+            "delta2": 0.3419157608695652,
+            "delta3": 0.507319972826087,
+            "image_id": 5,
+            "image_path": "./testing/datasets/lightfield\\dino\\input_Cam005.png"
+        },
+        {
+            "mae": 2.243734836578369,
+            "rmse": 3.045900583267212,
+            "rel": 2.2084405422210693,
+            "delta1": 0.21814910074145258,
+            "delta2": 0.3903036469668278,
+            "delta3": 0.47821335368323864,
+            "image_id": 6,
+            "image_path": "./testing/datasets/lightfield\\dishes\\input_Cam005.png"
+        },
+        {
+            "mae": 0.00024174358986783773,
+            "rmse": 0.0003237045311834663,
+            "rel": 2.187575340270996,
+            "delta1": 0.37797443461160274,
+            "delta2": 0.49423795476892823,
+            "delta3": 0.6095968534906588,
+            "image_id": 7,
+            "image_path": "./testing/datasets/lightfield\\dots\\input_Cam005.png"
+        },
+        {
+            "mae": 1.3020801544189453,
+            "rmse": 1.6048814058303833,
+            "rel": 1.6373264789581299,
+            "delta1": 0.15205413600562068,
+            "delta2": 0.30225012017897424,
+            "delta3": 0.46890137928484266,
+            "image_id": 8,
+            "image_path": "./testing/datasets/lightfield\\greek\\input_Cam005.png"
+        },
+        {
+            "mae": 1.0589040517807007,
+            "rmse": 1.5027211904525757,
+            "rel": 2.044055223464966,
+            "delta1": 0.2469589741562224,
+            "delta2": 0.4481081722215633,
+            "delta3": 0.6038297816260099,
+            "image_id": 9,
+            "image_path": "./testing/datasets/lightfield\\kitchen\\input_Cam005.png"
+        },
+        {
+            "mae": 1.0414687395095825,
+            "rmse": 1.2966822385787964,
+            "rel": 3.24345064163208,
+            "delta1": 0.25150355771402755,
+            "delta2": 0.3101493675175062,
+            "delta3": 0.4496061102326632,
+            "image_id": 10,
+            "image_path": "./testing/datasets/lightfield\\medieval2\\input_Cam005.png"
+        },
+        {
+            "mae": 0.3977607488632202,
+            "rmse": 0.5095940232276917,
+            "rel": 414.48626708984375,
+            "delta1": 0.25760531276026827,
+            "delta2": 0.4191908122561697,
+            "delta3": 0.5065423223600579,
+            "image_id": 11,
+            "image_path": "./testing/datasets/lightfield\\museum\\input_Cam005.png"
+        },
+        {
+            "mae": 1.7241812944412231,
+            "rmse": 2.2407593727111816,
+            "rel": 1.50692617893219,
+            "delta1": 0.18545581071677106,
+            "delta2": 0.27359441364912535,
+            "delta3": 0.39048064694166484,
+            "image_id": 12,
+            "image_path": "./testing/datasets/lightfield\\pens\\input_Cam005.png"
+        },
+        {
+            "mae": 0.9930957555770874,
+            "rmse": 1.2046891450881958,
+            "rel": 1.4495248794555664,
+            "delta1": 0.13935342746986185,
+            "delta2": 0.22968539010038921,
+            "delta3": 0.3371012385206186,
+            "image_id": 13,
+            "image_path": "./testing/datasets/lightfield\\pillows\\input_Cam005.png"
+        },
+        {
+            "mae": 0.7944322228431702,
+            "rmse": 1.0990166664123535,
+            "rel": 2.5300495624542236,
+            "delta1": 0.21846980759626133,
+            "delta2": 0.34893095821342784,
+            "delta3": 0.440840012367113,
+            "image_id": 14,
+            "image_path": "./testing/datasets/lightfield\\platonic\\input_Cam005.png"
+        },
+        {
+            "mae": 1.3246196508407593,
+            "rmse": 1.541258692741394,
+            "rel": 2.123660087585449,
+            "delta1": 0.45044345342486347,
+            "delta2": 0.5096457383374254,
+            "delta3": 0.5766397755173623,
+            "image_id": 15,
+            "image_path": "./testing/datasets/lightfield\\pyramids\\input_Cam005.png"
+        },
+        {
+            "mae": 0.8289057016372681,
+            "rmse": 1.062558650970459,
+            "rel": 1.1051069498062134,
+            "delta1": 0.23457750381612594,
+            "delta2": 0.4082428320029557,
+            "delta3": 0.5239030460949121,
+            "image_id": 16,
+            "image_path": "./testing/datasets/lightfield\\rosemary\\input_Cam005.png"
+        },
+        {
+            "mae": 1.0785046815872192,
+            "rmse": 1.3842686414718628,
+            "rel": 2.0178956985473633,
+            "delta1": 0.17141600367197063,
+            "delta2": 0.2721465728274174,
+            "delta3": 0.4169025397796818,
+            "image_id": 17,
+            "image_path": "./testing/datasets/lightfield\\sideboard\\input_Cam005.png"
+        },
+        {
+            "mae": 0.879648745059967,
+            "rmse": 1.165181279182434,
+            "rel": 1.6033719778060913,
+            "delta1": 0.24587553981173754,
+            "delta2": 0.4132619554618002,
+            "delta3": 0.5945789965969472,
+            "image_id": 18,
+            "image_path": "./testing/datasets/lightfield\\table\\input_Cam005.png"
+        },
+        {
+            "mae": 1.4296391010284424,
+            "rmse": 1.9229165315628052,
+            "rel": 12340.60546875,
+            "delta1": 0.08483867134113732,
+            "delta2": 0.18419097985620062,
+            "delta3": 0.31317963039990493,
+            "image_id": 19,
+            "image_path": "./testing/datasets/lightfield\\tomb\\input_Cam005.png"
+        }
+    ],
+    "config": {
+        "method": "segmentation",
+        "dataset": "lightfield",
+        "sample_count": 20,
+        "time": 117.0644121170044
+    }
+}

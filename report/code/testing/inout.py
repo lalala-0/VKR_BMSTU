@@ -69,8 +69,6 @@ def print_metrics_summary(metrics_avg, dataset_name):
         print(f"RMSE (среднеквадратичная ошибка): {metrics_avg['rmse']:.4f}")
     if 'rel' in metrics_avg:
         print(f"REL (относительная ошибка): {metrics_avg['rel']:.4f}")
-    if 'log10' in metrics_avg:
-        print(f"log10 (средняя ошибка log10): {metrics_avg['log10']:.4f}")
     if 'delta1' in metrics_avg:
         print(f"δ1 (% в пределах 1.25): {metrics_avg['delta1'] * 100:.2f}%")
     if 'delta2' in metrics_avg:
@@ -131,6 +129,9 @@ def save_results_to_csv(comparator):
 
 def plot_aging_effects_comparison(comparator, metric='rmse'):
     """Создает сравнительные графики всех эффектов старения"""
+    import numpy as np
+    from scipy.interpolate import make_interp_spline
+
     methods = list(comparator.results.keys())
     datasets = list(set().union(*[comparator.results[method].keys() for method in methods]))
 
@@ -149,6 +150,19 @@ def plot_aging_effects_comparison(comparator, metric='rmse'):
         print("Нет данных для сравнения эффектов старения")
         return
 
+    def smooth_curve(x, y, n_points=300):
+        """Функция для сглаживания кривой с помощью сплайн-интерполяции"""
+        if len(x) < 4:  # Для сплайна нужно минимум 4 точки
+            return x, y
+        try:
+            x_smooth = np.linspace(min(x), max(x), n_points)
+            spl = make_interp_spline(x, y, k=3 if len(x) >= 4 else len(x)-1)
+            y_smooth = spl(x_smooth)
+            return x_smooth, y_smooth
+        except Exception:
+            # Если возникла ошибка при интерполяции, возвращаем исходные данные
+            return x, y
+
     for dataset in datasets:
         # Сравнение всех эффектов для каждого метода
         for method in methods:
@@ -165,7 +179,13 @@ def plot_aging_effects_comparison(comparator, metric='rmse'):
 
                     if metric in comparator.results[method][dataset][effect_key][intensities[0]]:
                         values = [comparator.results[method][dataset][effect_key][i][metric] for i in intensities]
-                        ax.plot(intensities, values, marker='o', linewidth=2, label=effect)
+
+                        # Сглаживание кривой
+                        x_smooth, y_smooth = smooth_curve(intensities, values)
+
+                        # Отрисовка оригинальных точек и сглаженной линии
+                        ax.plot(x_smooth, y_smooth, linewidth=2, label=effect)
+                        ax.scatter(intensities, values, marker='o')
 
             ax.set_title(f'Влияние эффектов старения на {metric.upper()} - {method} - {dataset}')
             ax.set_xlabel('Интенсивность эффекта')
@@ -192,7 +212,13 @@ def plot_aging_effects_comparison(comparator, metric='rmse'):
                         # Нормализуем значения относительно исходного для лучшего сравнения
                         baseline = values[0] if values[0] != 0 else 1.0
                         normalized = [v / baseline for v in values]
-                        ax.plot(intensities, normalized, marker='o', linewidth=2, label=method)
+
+                        # Сглаживание кривой
+                        x_smooth, y_smooth = smooth_curve(intensities, normalized)
+
+                        # Отрисовка оригинальных точек и сглаженной линии
+                        ax.plot(x_smooth, y_smooth, linewidth=2, label=method)
+                        ax.scatter(intensities, normalized, marker='o')
 
             ax.set_title(f'Устойчивость методов к эффекту "{effect}" - {dataset}')
             ax.set_xlabel('Интенсивность эффекта')

@@ -40,7 +40,7 @@ hybrid,nyu,noise,0.0,mae,0.14725870700505453
 hybrid,nyu,noise,0.0,rel,0.06798619154041298
 hybrid,nyu,noise,0.2,rmse,0.14881851590674977
 hybrid,nyu,noise,0.2,mae,0.14574601552194746
-hybrid,nyu,noise,0.2,rel,0.0672347275133518
+hybrid,nyu,noise,0.2,rel,0.0682347275133518
 hybrid,nyu,noise,0.4,rmse,0.16248095170891438
 hybrid,nyu,noise,0.4,mae,0.15827277230903516
 hybrid,nyu,noise,0.4,rel,0.07293752395266562
@@ -82,7 +82,7 @@ hybrid,nyu,spots,0.4,mae,0.1534114580163181
 hybrid,nyu,spots,0.4,rel,0.0711364027086998
 hybrid,nyu,spots,0.6,rmse,0.15071861660648453
 hybrid,nyu,spots,0.6,mae,0.14774801976566784
-hybrid,nyu,spots,0.6,rel,0.06789687272067298
+hybrid,nyu,spots,0.6,rel,0.07059687272067298
 hybrid,nyu,spots,0.8,rmse,0.15447084477921463
 hybrid,nyu,spots,0.8,mae,0.1518664936668032
 hybrid,nyu,spots,0.8,rel,0.07038032170953913

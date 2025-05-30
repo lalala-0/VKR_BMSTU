@@ -17,6 +17,8 @@ def main():
                         help='Директория для сохранения результатов')
     parser.add_argument('--load-only', action='store_true',
                         help='Только загрузить существующие результаты и построить графики')
+    parser.add_argument('--results-file', default=None,
+                        help='Путь к файлу с результатами для загрузки (если не указано, используется results.json)')
     parser.add_argument('--comprehensive-aging', action='store_true',
                         help='Запустить комплексное сравнение эффектов старения')
     parser.add_argument('--aging-dataset', default='nyu',
@@ -37,6 +39,11 @@ def main():
             # Запускаем тестирование для всех комбинаций
             aging_levels = list(range(args.aging_levels + 1))  # 0, 1, 2, ..., args.aging_levels
             comparator.run_comparisons(args.methods, args.datasets, aging_levels)
+    else:
+        print(f"\n{'#' * 80}")
+        print("Загрузка существующих результатов и построение графиков")
+        print(f"{'#' * 80}")
+        comparator.plot_results(args.results_file)
 
 
 

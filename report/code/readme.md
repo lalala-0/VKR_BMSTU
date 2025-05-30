@@ -55,5 +55,9 @@
 `python comparator.py  --comprehensive-aging --aging-dataset lightfield --methods hybrid --aging-levels 3`
 
 
+### Рисуем графики по готовым данным
 
-
+#### Сравнение метрик методов в зависимости от уровня состаривания
+` python comparator.py --load-only --results-file D:\VKR_BMSTU\report\code\comparison_results\aging_effects_results.csv --output-dir ./графики`
+#### Сравнение метода с различными способами состаривания в зависимости от уровня состаривания
+` python comparator.py --load-only --results-file D:\VKR_BMSTU\report\code\research_results\aging_levels_results.csv --output-dir ./графики`

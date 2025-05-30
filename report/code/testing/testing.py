@@ -386,6 +386,14 @@ class LightFieldDataset(DepthDataset):
             if scale < 0:
                 data = np.flipud(data)
 
+            # Инвертируем карту глубины: далекие объекты становятся близкими и наоборот
+            valid_mask = data > 0
+            if np.any(valid_mask):
+                max_depth = np.max(data)
+                inverted_data = np.zeros_like(data)
+                inverted_data[valid_mask] = max_depth - data[valid_mask]
+                data = inverted_data
+
             return data
 
     def process_sample(self, sample_idx, reconstructor):
@@ -539,8 +547,7 @@ def run_testing(args):
                         os.path.join(vis_dir, f"sample_{i}.png")
                     )
 
-                if 'mae' in result['metrics']:
-                    print(f"Обработано изображение {i + 1}/{sample_count}, MAE: {result['metrics']['mae']:.4f}")
+                print_metrics_summary(result['metrics'], dataset.dataset_name)
 
             except Exception as e:
                 print(f"Ошибка при обработке изображения {i}: {str(e)}")
