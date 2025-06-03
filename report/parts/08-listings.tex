@@ -3,8 +3,7 @@
 В листинге~\ref{lst:preproc} представлен код предварительной обработки входного изображения, включающий методы шумоподавления, нормализации освещения и коррекции артефактов, характерных для архивных фотографий.
 
 \begin{center}
-    \captionsetup{justification=raggedright,singlelinecheck=off}
-    \begin{lstlisting}[label=lst:preproc,caption=Предварительная обработка изображения]
+    \begin{lstlisting}[label=lst:preproc,caption=Предварительная обработка изображения,xrightmargin=8pt,xleftmargin=17pt,xleftmargin=17pt]
 import cv2
 import numpy as np
 
@@ -70,7 +69,6 @@ def preprocess_archival_photo(image_path, brightness_boost=1.5, contrast_boost=1
 \newpage
 
 \begin{center}
-    \captionsetup{justification=raggedright,singlelinecheck=off}
     \begin{lstlisting}[label=lst:depth_extract,caption=Извлечение глубины из подготовленного изображения]
 import numpy as np
 import cv2
@@ -164,7 +162,6 @@ def depth_extract(self, image_path):
 В листинге~\ref{lst:segmentation} представлен код сегментации изображения, позволяющий выделить различные объекты сцены для их дальнейшей раздельной обработки методом Shape From Shading.
 
 \begin{center}
-    \captionsetup{justification=raggedright,singlelinecheck=off}
     \begin{lstlisting}[label=lst:segmentation,caption=Сегментация изображения]
 import cv2
 import numpy as np
@@ -233,7 +230,6 @@ def segmentation(img, n_color_segments=6):
 Листинг~\ref{lst:light_estimation} представляет реализацию алгоритма оценки параметров освещения сцены, необходимых для корректного применения метода Shape from Shading.
 
 \begin{center}
-    \captionsetup{justification=raggedright,singlelinecheck=off}
     \begin{lstlisting}[label=lst:light_estimation,caption=Оценка освещения]
 import cv2
 import numpy as np
@@ -286,7 +282,6 @@ def estimate_lighting(image):
 В листинге~\ref{lst:albedo_separation} представлен код разделения альбедо и затенения метода Shape from Shading, позволяющий отделить собственные цвета поверхностей от эффектов освещения.
 
 \begin{center}
-    \captionsetup{justification=raggedright,singlelinecheck=off}
     \begin{lstlisting}[label=lst:albedo_separation,caption=Разделение альбедо и затенения]
 import numpy as np
 from scipy.ndimage import gaussian_filter
@@ -339,7 +334,6 @@ def separate_albedo_shading(image, lighting_params):
 Листинг~\ref{lst:normals_estimation} содержит код вычисления нормалей к поверхности на основе полученного разделения альбедо и затенения.
 
 \begin{center}
-    \captionsetup{justification=raggedright,singlelinecheck=off}
     \begin{lstlisting}[label=lst:normals_estimation,caption=Оценка нормалей]
 import cv2
 import numpy as np
@@ -396,7 +390,6 @@ def estimate_normals(shading, lighting_params):
 Заключительный этап обработки представлен в листинге~\ref{lst:depth_integration} --- алгоритм интеграции поля нормалей для получения итоговой карты глубины с высоким уровнем детализации поверхностей.
 
 \begin{center}
-    \captionsetup{justification=raggedright,singlelinecheck=off}
     \begin{lstlisting}[label=lst:depth_integration,caption=Восстановление карты глубин по нормалям]
 import cv2
 import numpy as np

@@ -1,6 +1,6 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.2 Chrome/134.0.6998.205 Electron/35.3.0 Safari/537.36" version="27.0.2" pages="8">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36" version="27.0.9" pages="8">
   <diagram name="IDEF0" id="H3Ew5IqSyzJCHdR53P29">
-    <mxGraphModel dx="2343" dy="1095" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2867" dy="876" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -65,7 +65,7 @@
         <mxCell id="McOwQ9IBrJ1wxKSjvWXN-14" value="Параметры алгоритмов" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Times New Roman;fontSize=17;" parent="1" vertex="1">
           <mxGeometry x="-488" y="102" width="190" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="McOwQ9IBrJ1wxKSjvWXN-15" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;fontSize=17;exitX=0.436;exitY=0.974;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" target="McOwQ9IBrJ1wxKSjvWXN-2" edge="1" source="McOwQ9IBrJ1wxKSjvWXN-16">
+        <mxCell id="McOwQ9IBrJ1wxKSjvWXN-15" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;fontSize=17;exitX=0.436;exitY=0.974;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="McOwQ9IBrJ1wxKSjvWXN-16" target="McOwQ9IBrJ1wxKSjvWXN-2" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="-226" y="140" as="sourcePoint" />
             <mxPoint x="-155" y="189" as="targetPoint" />
@@ -139,93 +139,93 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-4" value="А21: Оценка параметров освещения" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=17;" parent="1" vertex="1">
-          <mxGeometry x="-700" y="832" width="160" height="70" as="geometry" />
+          <mxGeometry x="-983" y="1892" width="160" height="70" as="geometry" />
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-5" value="" style="endArrow=classic;html=1;rounded=0;fontFamily=Times New Roman;fontSize=17;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="-820" y="866.5" as="sourcePoint" />
-            <mxPoint x="-700" y="866.5" as="targetPoint" />
+            <mxPoint x="-1103" y="1926.5" as="sourcePoint" />
+            <mxPoint x="-983" y="1926.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-6" value="Изображение" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Times New Roman;fontSize=17;" parent="1" vertex="1">
-          <mxGeometry x="-827" y="840" width="120" height="30" as="geometry" />
+          <mxGeometry x="-1110" y="1900" width="120" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-7" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Times New Roman;fontSize=17;" parent="1" source="Xu0p6CSBRWHM7LoZSx1f-4" target="Xu0p6CSBRWHM7LoZSx1f-8" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="-600" y="1012" as="sourcePoint" />
-            <mxPoint x="-550" y="962" as="targetPoint" />
+            <mxPoint x="-883" y="2072" as="sourcePoint" />
+            <mxPoint x="-833" y="2022" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="-450" y="867" />
-              <mxPoint x="-450" y="945" />
+              <mxPoint x="-733" y="1927" />
+              <mxPoint x="-733" y="2005" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-8" value="A22: Построение карт глубин" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=17;" parent="1" vertex="1">
-          <mxGeometry x="-431" y="915" width="120" height="60" as="geometry" />
+          <mxGeometry x="-714" y="1975" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-9" value="Параметры&amp;nbsp;&lt;div&gt;освещения&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Times New Roman;fontSize=17;" parent="1" vertex="1">
-          <mxGeometry x="-542" y="820" width="110" height="50" as="geometry" />
+          <mxGeometry x="-825" y="1880" width="110" height="50" as="geometry" />
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-10" value="Промежуточные&amp;nbsp;&lt;div&gt;карты глубин&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Times New Roman;fontSize=17;" parent="1" vertex="1">
-          <mxGeometry x="-319" y="897" width="150" height="50" as="geometry" />
+          <mxGeometry x="-602" y="1957" width="150" height="50" as="geometry" />
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-11" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Times New Roman;fontSize=17;" parent="1" target="Xu0p6CSBRWHM7LoZSx1f-25" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="-311" y="945" as="sourcePoint" />
-            <mxPoint x="-81" y="1132" as="targetPoint" />
+            <mxPoint x="-594" y="2005" as="sourcePoint" />
+            <mxPoint x="-364" y="2192" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="-190" y="942" />
-              <mxPoint x="-190" y="1043" />
+              <mxPoint x="-473" y="2002" />
+              <mxPoint x="-473" y="2103" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-15" value="Midas" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Times New Roman;fontSize=17;" parent="1" vertex="1">
-          <mxGeometry x="-445" y="1052" width="70" height="30" as="geometry" />
+          <mxGeometry x="-728" y="2112" width="70" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-16" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontFamily=Times New Roman;fontSize=17;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="-414" y="1055" as="sourcePoint" />
-            <mxPoint x="-414" y="975" as="targetPoint" />
+            <mxPoint x="-697" y="2115" as="sourcePoint" />
+            <mxPoint x="-697" y="2035" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-21" value="Алгоритм SFS" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Times New Roman;fontSize=17;" parent="1" vertex="1">
-          <mxGeometry x="-383" y="1052" width="130" height="30" as="geometry" />
+          <mxGeometry x="-666" y="2112" width="130" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-22" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontFamily=Times New Roman;fontSize=17;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="-321" y="1055" as="sourcePoint" />
-            <mxPoint x="-321" y="975" as="targetPoint" />
+            <mxPoint x="-604" y="2115" as="sourcePoint" />
+            <mxPoint x="-604" y="2035" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-25" value="A23: Слияние результатов" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=17;" parent="1" vertex="1">
-          <mxGeometry x="-176" y="1013" width="120" height="60" as="geometry" />
+          <mxGeometry x="-459" y="2073" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-26" value="Промежуточная&amp;nbsp;&lt;div&gt;гибридная&amp;nbsp;&lt;div&gt;карта глубин&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Times New Roman;fontSize=17;" parent="1" vertex="1">
-          <mxGeometry x="-67" y="979" width="140" height="70" as="geometry" />
+          <mxGeometry x="-350" y="2039" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-27" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Times New Roman;fontSize=17;" parent="1" source="Xu0p6CSBRWHM7LoZSx1f-25" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="-153" y="943" as="sourcePoint" />
-            <mxPoint x="60" y="1043" as="targetPoint" />
+            <mxPoint x="-436" y="2003" as="sourcePoint" />
+            <mxPoint x="-223" y="2103" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-32" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitX=0.534;exitY=0.944;exitDx=0;exitDy=0;exitPerimeter=0;fontFamily=Times New Roman;fontSize=17;" parent="1" target="Xu0p6CSBRWHM7LoZSx1f-8" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="-763.5999999999999" y="866.3199999999997" as="sourcePoint" />
-            <mxPoint x="-350" y="1075" as="targetPoint" />
+            <mxPoint x="-1046.6" y="1926.3199999999997" as="sourcePoint" />
+            <mxPoint x="-633" y="2135" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="-764" y="960" />
+              <mxPoint x="-1047" y="2020" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-36" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;fontSize=17;" parent="1" source="Xu0p6CSBRWHM7LoZSx1f-37" target="Xu0p6CSBRWHM7LoZSx1f-25" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="-110" y="980" as="sourcePoint" />
-            <mxPoint x="-173" y="901" as="targetPoint" />
+            <mxPoint x="-393" y="2040" as="sourcePoint" />
+            <mxPoint x="-456" y="1961" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Xu0p6CSBRWHM7LoZSx1f-37" value="Вес базовой&amp;nbsp;&lt;div&gt;карты&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Times New Roman;fontSize=17;" parent="1" vertex="1">
-          <mxGeometry x="-175" y="936" width="120" height="50" as="geometry" />
+          <mxGeometry x="-458" y="1996" width="120" height="50" as="geometry" />
         </mxCell>
         <mxCell id="0uaGuOswNT4uIWNccglu-1" value="Алгоритм устранения&amp;nbsp;&lt;div&gt;артефактов&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Times New Roman;fontSize=17;" parent="1" vertex="1">
           <mxGeometry x="-653" y="613" width="190" height="50" as="geometry" />
@@ -240,7 +240,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="ZDSxBMSYxLrX9nn3CBPj" name="Извлечение глубины из  подготовленного изображения">
-    <mxGraphModel dx="3032" dy="1593" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3253" dy="1752" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />

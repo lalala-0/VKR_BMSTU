@@ -7,7 +7,7 @@ from testing.compare_methods import ModelComparator
 def main():
 
     parser = argparse.ArgumentParser(description='Сравнение методов восстановления глубины')
-    parser.add_argument('--methods', nargs='+', default=['hybrid', 'regression', 'optimization'],
+    parser.add_argument('--methods', nargs='+', default=['hybrid', 'midas', 'segmentation', 'sfs'],
                         help='Методы для сравнения')
     parser.add_argument('--datasets', nargs='+', default=['nyu', 'make3d', 'scenenet', 'lightfield'],
                         help='Датасеты для тестирования')

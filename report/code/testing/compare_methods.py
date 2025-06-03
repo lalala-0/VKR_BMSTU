@@ -98,7 +98,8 @@ class ModelComparator:
             'nyu': './testing/datasets/nyu/nyu_depth_v2_labeled.mat',
             'make3d': './testing/datasets/make3d',
             'scenenet': './testing/datasets/sceneNet/scenenet_rgbd',
-            'lightfield': './testing/datasets/lightfield'
+            'lightfield': './testing/datasets/lightfield',
+            'humans': './testing/datasets/humans'
         }
         return dataset_paths.get(dataset, './datasets')
 
@@ -441,8 +442,6 @@ class ModelComparator:
         save_results_to_csv(self)
         # Строим сравнительные графики
         plot_aging_effects_comparison(self)
-        # Строим графики с аналитикой по всем метрикам
-        self.plot_all_metrics()
 
     def plot_results(self, results_file=None):
         """

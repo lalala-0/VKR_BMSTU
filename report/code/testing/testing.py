@@ -13,9 +13,8 @@ import numpy as np
 from testing.metrics import compute_depth_metrics
 from testing.aging import apply_aging_effects
 from testing.inout import create_result_directories, print_metrics_summary, save_metrics_to_json, visualize_depth_results
+
 from reconstruction.depth_reconstruction import ArchivalDepthReconstruction
-from testing.scenenet_dataset import SceneNetDataset
-from testing.scenenet_dataset import SceneNetDataset as SceneNetLoader
 
 
 def initialize_depth_reconstructor(args):
@@ -125,6 +124,23 @@ class Make3DDataset(DepthDataset):
                 print(f"Используется ключ {depth_keys[0]} для данных глубины")
             else:
                 raise KeyError(f"Не найден ключ с данными глубины в файле {depth_file}")
+
+        # Зеркальное отражение карты глубины по горизонтали
+        gt_depth = np.fliplr(gt_depth)
+
+        # Обрезаем изображение до размера карты глубины (равномерно сверху и снизу)
+        image_height, image_width = image.shape[:2]
+        depth_height, depth_width = gt_depth.shape
+
+        if image_height > depth_height:
+            excess = image_height - depth_height
+            crop_top = excess // 2
+            crop_bottom = excess - crop_top
+            image = image[crop_top:image_height - crop_bottom, :]
+
+        # Приводим к одинаковой ширине
+        if image_width != depth_width:
+            image = cv2.resize(image, (depth_width, image.shape[0]))
 
         # Применяем эффекты старения, если требуется
         image = apply_aging_effects(image, self.args)
@@ -415,12 +431,14 @@ class LightFieldDataset(DepthDataset):
         except Exception as e:
             print(f"Ошибка при чтении карты глубины {depth_path}: {str(e)}")
             return None
+        # Создаём маску валидных пикселей (где глубина > 0)
+        valid_mask = (gt_depth > 0).astype(np.uint8) * 255
 
         # Применяем эффекты старения
         image = apply_aging_effects(image, self.args)
 
         # Обрабатываем изображение моделью
-        results = reconstructor.process_numpy(image)
+        results = reconstructor.process_numpy(image, valid_mask)
         pred_depth = results['depth_map']
 
         # Приводим к одинаковым размерам
@@ -450,6 +468,126 @@ class LightFieldDataset(DepthDataset):
             'metrics': img_data
         }
 
+
+class humansDataset(DepthDataset):
+    """Класс для работы с датасетом Biwi Kinect Head Pose из .parquet файлов"""
+
+    def __init__(self, args):
+        super().__init__(args)
+        self.dataset_name = 'humans'
+        self.dataset = None
+        self.data_path = args.test_dataset if hasattr(args, 'test_dataset') else './datasets/humans'
+
+    def load_data(self):
+        print("Загрузка Biwi Kinect Head Pose датасета из .parquet файлов...")
+
+        try:
+            import pandas as pd
+            import glob
+            import os
+
+            # Ищем все .parquet файлы в указанной директории
+            parquet_files = glob.glob(os.path.join(self.data_path, "*.parquet"))
+
+            if not parquet_files:
+                print(f"Ошибка: не найдены .parquet файлы в {self.data_path}")
+                return False
+
+            # Загружаем данные из всех найденных файлов
+            dfs = []
+            for file in parquet_files:
+                df = pd.read_parquet(file)
+                dfs.append(df)
+
+            if dfs:
+                self.dataset = pd.concat(dfs, ignore_index=True)
+                # Отображаем названия столбцов для отладки
+                print(f"Доступные столбцы в датасете: {', '.join(self.dataset.columns)}")
+            else:
+                print("Ошибка: не удалось загрузить данные из .parquet файлов")
+                return False
+
+            # Ограничиваем количество образцов
+            max_samples = self.args.max_samples if hasattr(self.args, 'max_samples') and self.args.max_samples else len(self.dataset)
+            self.sample_count = min(max_samples, len(self.dataset))
+
+            print(f"Загружено {len(self.dataset)} образцов из Biwi Kinect Dataset")
+            print(f"Будет обработано {self.sample_count} образцов")
+
+            return True
+        except Exception as e:
+            print(f"Ошибка загрузки датасета Biwi Kinect: {str(e)}")
+            return False
+
+    def process_sample(self, sample_idx, reconstructor):
+        # Получаем образец из датасета
+        sample = self.dataset.iloc[sample_idx]
+
+        # Выводим содержимое первого образца для отладки
+        if sample_idx == 0:
+            print(f"Доступные колонки в образце: {sample.index.tolist()}")
+
+        # Получаем RGB-изображение
+        image = None
+        if 'image' in sample:
+            image_data = sample['image']
+
+            # Пытаемся декодировать изображение в зависимости от его формата
+            if isinstance(image_data, bytes):
+                # Если это бинарные данные, декодируем их в изображение
+                try:
+                    import io
+                    from PIL import Image
+                    image = np.array(Image.open(io.BytesIO(image_data)))
+                    if len(image.shape) == 2:  # Преобразуем одноканальное в RGB
+                        image = np.stack([image, image, image], axis=-1)
+                    print(f"Успешно декодировано изображение из бинарных данных, форма: {image.shape}")
+                except Exception as e:
+                    print(f"Ошибка декодирования изображения из бинарных данных: {e}")
+            elif isinstance(image_data, str):
+                # Если это путь к файлу
+                try:
+                    image = cv2.imread(image_data)
+                    if image is not None:
+                        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+                        print(f"Загружено изображение из файла {image_data}")
+                    else:
+                        print(f"Ошибка: не удалось загрузить изображение из {image_data}")
+                except Exception as e:
+                    print(f"Ошибка при загрузке изображения из пути: {e}")
+            elif hasattr(image_data, 'shape') and len(image_data.shape) >= 2:
+                # Если это уже numpy массив
+                image = image_data
+                print(f"Использован предоставленный массив numpy, форма: {image.shape}")
+            else:
+                print(f"Неизвестный формат данных изображения: {type(image_data)}")
+
+        if image is None or (hasattr(image, 'size') and image.size == 0):
+            raise ValueError(
+                "Изображение не найдено или не может быть декодировано. Тип данных: " + str(type(sample['image'])))
+
+        # Получаем карту глубины
+        gt_depth = None
+        if 'control_depth' in sample:
+            depth_data = sample['control_depth']
+
+            if isinstance(depth_data, str):
+                if depth_data.endswith('.npy'):
+                    gt_depth = np.load(depth_data)
+                else:
+                    gt_depth = cv2.imread(depth_data, cv2.IMREAD_UNCHANGED)
+            elif isinstance(depth_data, (list, tuple)) and len(depth_data) > 0:
+                path = depth_data[0]
+                if path.endswith('.npy'):
+                    gt_depth = np.load(path)
+                else:
+                    gt_depth = cv2.imread(path, cv2.IMREAD_UNCHANGED)
+            elif hasattr(depth_data, 'shape'):
+                gt_depth = depth_data
+
+        if gt_depth is None:
+            print("Предупреждение: карта глубины не найдена, использую нулевую матрицу.")
+            gt_depth = np.zeros((480, 640))
 class DatasetFactory:
     """Фабрика для создания экземпляров датасетов"""
 
@@ -463,6 +601,8 @@ class DatasetFactory:
             return NYUDataset(args)
         elif dataset_type.lower() == 'lightfield':
             return LightFieldDataset(args)
+        elif dataset_type.lower() == 'humans':
+            return humansDataset(args)
         else:
             raise ValueError(f"Неизвестный тип датасета: {dataset_type}")
 
@@ -508,10 +648,12 @@ def run_testing(args):
     print(f"Запуск тестирования метода {args.method} на датасете {args.dataset_type}...")
     start_time = time.time()
 
-    # Для SceneNet обрабатываем все сразу батчами
-    if args.dataset_type.lower() == 'scenenet':
-        all_results = dataset.process_batch(reconstructor)
-        for result in all_results:
+    sample_count = dataset.get_sample_count()
+
+    for i in tqdm(range(sample_count)):
+        try:
+            result = dataset.process_sample(i, reconstructor)
+
             all_metrics.append(result['metrics'])
 
             # Накапливаем суммарные метрики
@@ -519,38 +661,17 @@ def run_testing(args):
                 if k in metrics_sum:
                     metrics_sum[k] += v
 
-            # Визуализация (каждые 10 изображений)
-            if result['metrics']['image_id'] % 10 == 0:
+            # Визуализация (каждые 10 изображений или последнее)
+            if i % 10 == 0 or i == sample_count - 1:
                 visualize_depth_results(
                     result['image'], result['gt_depth'], result['pred_depth'],
-                    os.path.join(vis_dir, f"sample_{result['metrics']['image_id']}.png")
+                    os.path.join(vis_dir, f"sample_{i}.png")
                 )
-    else:
-        # Для остальных датасетов обрабатываем по одному образцу
-        sample_count = dataset.get_sample_count()
 
-        for i in tqdm(range(sample_count)):
-            try:
-                result = dataset.process_sample(i, reconstructor)
+            print_metrics_summary(result['metrics'], dataset.dataset_name)
 
-                all_metrics.append(result['metrics'])
-
-                # Накапливаем суммарные метрики
-                for k, v in result['metrics'].items():
-                    if k in metrics_sum:
-                        metrics_sum[k] += v
-
-                # Визуализация (каждые 10 изображений или последнее)
-                if i % 10 == 0 or i == sample_count - 1:
-                    visualize_depth_results(
-                        result['image'], result['gt_depth'], result['pred_depth'],
-                        os.path.join(vis_dir, f"sample_{i}.png")
-                    )
-
-                print_metrics_summary(result['metrics'], dataset.dataset_name)
-
-            except Exception as e:
-                print(f"Ошибка при обработке изображения {i}: {str(e)}")
+        except Exception as e:
+            print(f"Ошибка при обработке изображения {i}: {str(e)}")
 
     # Вычисляем средние метрики
     sample_count = dataset.get_sample_count()
@@ -587,4 +708,8 @@ def run_testing_nyu(args):
 
 def run_testing_lightfield(args):
     args.dataset_type = 'lightfield'
+    return run_testing(args)
+
+def run_testing_humans(args):
+    args.dataset_type = 'humans'
     return run_testing(args)

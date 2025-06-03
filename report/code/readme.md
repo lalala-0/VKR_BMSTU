@@ -21,7 +21,7 @@
 
 ## Гибридный метод (MiDaS + сегментация)
 
-`python main.py --image_path "D:\\VKR_BMSTU\\report\\code\\img\\img.png" --method hybrid`
+`python main.py --image_path "D:\\VKR_BMSTU\\report\\code\\img\\ex.jpg" --method hybrid`
 
 
 **Общие параметры для всех методов**
@@ -33,7 +33,7 @@
 
 ## Сравнение методов
 
-`python main.py --image_path "D:\\VKR_BMSTU\\report\\code\\img\\img.png" --compare `
+`python main.py --image_path "D:\\VKR_BMSTU\\report\\code\\img\\example.jpg" --compare `
 
 
 
@@ -50,7 +50,7 @@
 ### Сравнение метода с различными способами состаривания в зависимости от уровня состаривания
 
 #### на датасете nyu метод hybrid
-`python comparator.py  --comprehensive-aging --aging-dataset nyu --methods hybrid --aging-levels 3`    
+`python comparator.py  --comprehensive-aging --aging-dataset nyu --methods hybrid`    
 #### на датасете lightfield метод hybrid
 `python comparator.py  --comprehensive-aging --aging-dataset lightfield --methods hybrid --aging-levels 3`
 

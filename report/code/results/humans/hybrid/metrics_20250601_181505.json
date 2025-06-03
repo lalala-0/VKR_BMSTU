@@ -1,0 +1,10 @@
+{
+    "overall_metrics": {},
+    "per_image_metrics": [],
+    "config": {
+        "method": "hybrid",
+        "dataset": "humans",
+        "sample_count": 20,
+        "time": 0.0030002593994140625
+    }
+}

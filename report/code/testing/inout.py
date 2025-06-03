@@ -78,7 +78,7 @@ def print_metrics_summary(metrics_avg, dataset_name):
 
 def save_results_to_csv(comparator):
     """Сохраняет результаты тестирования в CSV формате для удобного анализа"""
-    metrics = ['rmse', 'mae', 'rel', 'delta1']
+    metrics = ['rmse', 'mae', 'rel', 'delta1', 'delta2', 'delta3']
 
     # Сохраняем результаты по уровням старения
     aging_data = []

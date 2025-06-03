@@ -11,3 +11,5 @@ venv/
 *.out
 *.synctex.gz
 /code/testing/datasets/
+/code/DPT/
+/code/AdelaiDepth/

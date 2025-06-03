@@ -3,15 +3,16 @@
 
 % Preamble
 
+\documentclass{bmstu}
+
+\bibliography{parts/lib}
+
 \usepackage[utf8]{inputenc}
 \usepackage[T2A]{fontenc}
 \usepackage[russian]{babel}
 
-
-\documentclass{bmstu}
-\bibliography{parts/lib}
-
 \usepackage{listings}
+\usepackage{xcolor}
 \lstset{
     literate=
     {а}{{\selectfont\char224}}1
@@ -83,12 +84,34 @@
     % Добавляем параметры рамки
     frame=single,            % Одинарная рамка вокруг кода
     framesep=3pt,            % Отступ текста от рамки
-    framexleftmargin=5pt,    % Отступ рамки слева
-    framexrightmargin=5pt,   % Отступ рамки справа
-    framextopmargin=5pt,     % Отступ рамки сверху
+    framexleftmargin=17pt,    % Отступ рамки слева
+    framexrightmargin=8pt,   % Отступ рамки справа
+    framextopmargin=5pt,     % Отступ рамки сверху (уменьшено с 20mm)
     framexbottommargin=5pt,  % Отступ рамки снизу
-    backgroundcolor=\color{white}, % Фон листинга (можно заменить на светло-серый)
+    backgroundcolor=\color{white}, % Фон листинга
     rulecolor=\color{black}  % Цвет рамки
+}
+
+% Для листинга кода:
+\lstset{%
+    language=python,                     % выбор языка для подсветки
+    basicstyle=\small\sffamily,          % размер и начертание шрифта для подсветки кода
+    numbersep=5pt,
+    numbers=left,                        % где поставить нумерацию строк (слева\справа)
+%numberstyle=,                           % размер шрифта для номеров строк
+    stepnumber=1,                        % размер шага между двумя номерами строк
+    xleftmargin=17pt,
+    xrightmargin=8pt,
+    xtopmargin=5pt,                      % Отступ сверху (уменьшено с 20mm)
+    showstringspaces=false,
+    numbersep=5pt,                       % как далеко отстоят номера строк от подсвечиваемого кода
+    frame=single,                        % рисовать рамку вокруг кода
+    tabsize=4,                           % размер табуляции по умолчанию равен 4 пробелам
+    captionpos=t,                        % позиция заголовка вверху [t] или внизу [b]
+    breaklines=true,
+    breakatwhitespace=true,              % переносить строки только если есть пробел
+    escapeinside={\#*}{*},               % если нужно добавить комментарии в коде
+    backgroundcolor=\color{white}
 }
 
 \usepackage[final]{pdfpages}
@@ -106,7 +129,7 @@
     построение карты глубин,
     методы структурного освещения,
     определения глубины из размытия (Depth from defocus),
-    стереосопоставления,
+%    стереосопоставления,
     структуры из движения (Structure from motion),
     комфортной генерации глубины (Comfortable Depth Generation).
 %

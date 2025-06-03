@@ -1,0 +1,218 @@
+{
+    "overall_metrics": {
+        "mae": 0.49909229137937644,
+        "rmse": 0.5629574089376204,
+        "rel": 0.11575198324396885,
+        "delta1": 0.22242332830568126,
+        "delta2": 0.3780668677727501,
+        "delta3": 0.4927853192559075
+    },
+    "per_image_metrics": [
+        {
+            "mae": 0.46879750321753044,
+            "rmse": 0.5480468177674735,
+            "rel": 0.13092626258727477,
+            "delta1": 0.19582704876822524,
+            "delta2": 0.2564102564102564,
+            "delta3": 0.36324786324786323,
+            "image_id": 0,
+            "image_path": "./testing/datasets/make3d\\Images\\img-combined1-p-108t0.jpg"
+        },
+        {
+            "mae": 0.5576958010516234,
+            "rmse": 0.613801658716902,
+            "rel": 0.2689747865317569,
+            "delta1": 0.1297134238310709,
+            "delta2": 0.2066365007541478,
+            "delta3": 0.2463549522373052,
+            "image_id": 1,
+            "image_path": "./testing/datasets/make3d\\Images\\img-combined1-p-139t0.jpg"
+        },
+        {
+            "mae": 0.4012905649619394,
+            "rmse": 0.487411454836625,
+            "rel": 0.1970477221871246,
+            "delta1": 0.06963298139768728,
+            "delta2": 0.09653092006033183,
+            "delta3": 0.1375062845651081,
+            "image_id": 2,
+            "image_path": "./testing/datasets/make3d\\Images\\img-combined1-p-170t0.jpg"
+        },
+        {
+            "mae": 0.5171105270491663,
+            "rmse": 0.5950982904772573,
+            "rel": 0.1033801751602865,
+            "delta1": 0.15082956259426847,
+            "delta2": 0.3167420814479638,
+            "delta3": 0.4175465057817999,
+            "image_id": 3,
+            "image_path": "./testing/datasets/make3d\\Images\\img-combined1-p-188t0.jpg"
+        },
+        {
+            "mae": 0.4326456516194432,
+            "rmse": 0.4816093211955664,
+            "rel": 0.06635816489486437,
+            "delta1": 0.26998491704374056,
+            "delta2": 0.4723479135243841,
+            "delta3": 0.6106083459024636,
+            "image_id": 4,
+            "image_path": "./testing/datasets/make3d\\Images\\img-combined1-p-220t0.jpg"
+        },
+        {
+            "mae": 0.5589802872381506,
+            "rmse": 0.6214425997784154,
+            "rel": 0.09466314599624392,
+            "delta1": 0.3200100553041729,
+            "delta2": 0.4200603318250377,
+            "delta3": 0.477124183006536,
+            "image_id": 5,
+            "image_path": "./testing/datasets/make3d\\Images\\img-combined1-p-251t0.jpg"
+        },
+        {
+            "mae": 0.49246576871424014,
+            "rmse": 0.5491362254054514,
+            "rel": 0.1510261306476015,
+            "delta1": 0.2420814479638009,
+            "delta2": 0.38838612368024134,
+            "delta3": 0.49120160884866765,
+            "image_id": 6,
+            "image_path": "./testing/datasets/make3d\\Images\\img-combined1-p-282t0.jpg"
+        },
+        {
+            "mae": 0.546095418692676,
+            "rmse": 0.61572274857381,
+            "rel": 0.09218078034477022,
+            "delta1": 0.2931121166415284,
+            "delta2": 0.4577677224736048,
+            "delta3": 0.55052790346908,
+            "image_id": 7,
+            "image_path": "./testing/datasets/make3d\\Images\\img-combined1-p-313t0.jpg"
+        },
+        {
+            "mae": 0.4163886136751435,
+            "rmse": 0.5087997936246577,
+            "rel": 0.09495796479799415,
+            "delta1": 0.10583207642031171,
+            "delta2": 0.22322775263951736,
+            "delta3": 0.39441930618401205,
+            "image_id": 8,
+            "image_path": "./testing/datasets/make3d\\Images\\img-combined1-p-343t0.jpg"
+        },
+        {
+            "mae": 0.3951913747373193,
+            "rmse": 0.4883025563940899,
+            "rel": 0.16228271283093204,
+            "delta1": 0.10155857214680744,
+            "delta2": 0.21945701357466063,
+            "delta3": 0.3137254901960784,
+            "image_id": 9,
+            "image_path": "./testing/datasets/make3d\\Images\\img-manmade1-p-169t0.jpg"
+        },
+        {
+            "mae": 0.4892522696408646,
+            "rmse": 0.5784196543202915,
+            "rel": 0.17326024637344015,
+            "delta1": 0.2561588738059326,
+            "delta2": 0.2968828557063851,
+            "delta3": 0.33308195072900953,
+            "image_id": 10,
+            "image_path": "./testing/datasets/make3d\\Images\\img-manmade2-p-169t0.jpg"
+        },
+        {
+            "mae": 0.3809157216777429,
+            "rmse": 0.4175761370818497,
+            "rel": 0.10973976506347405,
+            "delta1": 0.28104575163398693,
+            "delta2": 0.461035696329814,
+            "delta3": 0.5470085470085471,
+            "image_id": 11,
+            "image_path": "./testing/datasets/make3d\\Images\\img-manmade3-p-169t0.jpg"
+        },
+        {
+            "mae": 0.5576701432463792,
+            "rmse": 0.5994166010891914,
+            "rel": 0.04087071541592167,
+            "delta1": 0.38009049773755654,
+            "delta2": 0.6312217194570136,
+            "delta3": 0.7863247863247863,
+            "image_id": 12,
+            "image_path": "./testing/datasets/make3d\\Images\\img-manmade4-p-169t0.jpg"
+        },
+        {
+            "mae": 0.6123006943837659,
+            "rmse": 0.6578050979522579,
+            "rel": 0.05070652309861817,
+            "delta1": 0.2264957264957265,
+            "delta2": 0.5005027652086476,
+            "delta3": 0.6925590749120161,
+            "image_id": 13,
+            "image_path": "./testing/datasets/make3d\\Images\\img-manmade5-p-108t0.jpg"
+        },
+        {
+            "mae": 0.3923905954008763,
+            "rmse": 0.4625841203268959,
+            "rel": 0.30095752367123574,
+            "delta1": 0.21694318753142283,
+            "delta2": 0.3514328808446455,
+            "delta3": 0.40397184514831574,
+            "image_id": 14,
+            "image_path": "./testing/datasets/make3d\\Images\\img-manmade5-p-139t0.jpg"
+        },
+        {
+            "mae": 0.5997631939999416,
+            "rmse": 0.6652872026174097,
+            "rel": 0.061598115164818626,
+            "delta1": 0.1322272498743087,
+            "delta2": 0.33408748114630465,
+            "delta3": 0.5568124685771745,
+            "image_id": 15,
+            "image_path": "./testing/datasets/make3d\\Images\\img-manmade5-p-14t0.jpg"
+        },
+        {
+            "mae": 0.45642529656021413,
+            "rmse": 0.510639110963639,
+            "rel": 0.04557372646135805,
+            "delta1": 0.33408748114630465,
+            "delta2": 0.5138260432378079,
+            "delta3": 0.6103569632981398,
+            "image_id": 16,
+            "image_path": "./testing/datasets/make3d\\Images\\img-manmade5-p-169t0.jpg"
+        },
+        {
+            "mae": 0.5707389936964437,
+            "rmse": 0.619794296951001,
+            "rel": 0.0342469661332213,
+            "delta1": 0.3019105077928607,
+            "delta2": 0.7428355957767723,
+            "delta3": 0.8305681246857718,
+            "image_id": 17,
+            "image_path": "./testing/datasets/make3d\\Images\\img-manmade5-p-282t0.jpg"
+        },
+        {
+            "mae": 0.4944167090393091,
+            "rmse": 0.5586222872834912,
+            "rel": 0.04785829212804737,
+            "delta1": 0.34841628959276016,
+            "delta2": 0.43011563599798897,
+            "delta3": 0.6493212669683258,
+            "image_id": 18,
+            "image_path": "./testing/datasets/make3d\\Images\\img-manmade5-p-313t0.jpg"
+        },
+        {
+            "mae": 0.6413106989847606,
+            "rmse": 0.6796322033961308,
+            "rel": 0.08842994539039255,
+            "delta1": 0.09250879839115134,
+            "delta2": 0.24183006535947713,
+            "delta3": 0.4434389140271493,
+            "image_id": 19,
+            "image_path": "./testing/datasets/make3d\\Images\\img-manmade5-p-343t0.jpg"
+        }
+    ],
+    "config": {
+        "method": "midas",
+        "dataset": "make3d",
+        "sample_count": 20,
+        "time": 359.2772023677826
+    }
+}

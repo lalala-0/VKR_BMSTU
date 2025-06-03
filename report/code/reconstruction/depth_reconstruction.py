@@ -159,125 +159,66 @@ class ArchivalDepthReconstruction:
         return results
 
     def process_hybrid(self, image_array):
-        """
-        Гибридный метод: основная карта глубин из MiDaS + детализация через сегментацию
-        """
-        start_time = time.time()
-        print("Применяю гибридный метод восстановления глубины...")
+       """
+       Гибридный метод: сплавление карт глубины из MiDaS и сегментационного подхода
+       """
+       start_time = time.time()
+       print("Применяю гибридный метод восстановления глубины...")
 
-        # Шаг 1: Получаем базовую карту глубины с помощью MiDaS
-        print("Получение базовой карты глубины через MiDaS...")
-        midas_results = self.process_midas(image_array)
-        base_depth = midas_results['depth_map']
-        preprocessed = midas_results['preprocessed']
-        artifact_mask = np.zeros_like(preprocessed, dtype=np.uint8)
+       # Шаг 1: Получаем карту глубины с помощью MiDaS
+       print("Получение карты глубины через MiDaS...")
+       midas_results = self.process_midas(image_array)
+       midas_depth = midas_results['final_depth']
+       preprocessed = midas_results['preprocessed']
 
-        # Шаг 2: Получаем сегменты для детализации
-        print("Сегментация изображения для детализации...")
-        segments_mask, bboxes = segment_by_color(
-            preprocessed,
-            self.n_color_segments
-        )
+       # Шаг 2: Получаем карту глубины с помощью сегментационного метода
+       print("Получение карты глубины через сегментационный метод...")
+       segment_results = self.process_segmentation(image_array)
+       segment_depth = segment_results['final_depth']
 
-        # Шаг 3: Инициализируем карты для деталей через сегментационный метод
-        detail_depth = np.zeros_like(base_depth)
-        detail_weight = np.zeros_like(base_depth)
+       # Шаг 3: Сплавляем две карты глубины
+       print("Интеграция карт глубины...")
 
-        # Шаг 4: Обрабатываем каждый сегмент для получения деталей
-        print("Детализация каждого сегмента...")
-        for segment_id, bbox in bboxes.items():
-            y1, y2, x1, x2 = bbox
+       # Получаем веса для сплавления на основе уверенности в деталях сегментации
+       # Вычисляем оценку детализации сегментационного метода через градиенты
+       detail_weight = np.abs(sobel(segment_depth, axis=0)) + np.abs(sobel(segment_depth, axis=1))
+       detail_weight = gaussian_filter(detail_weight, sigma=2.0)
 
-            # Создаем маску для текущего сегмента
-            segment_mask = (segments_mask[y1:y2, x1:x2] == segment_id).astype(np.float32)
+       # Нормализуем веса
+       if np.max(detail_weight) > 0:
+           detail_weight = detail_weight / np.max(detail_weight)
 
-            # Пропускаем слишком маленькие сегменты
-            if np.sum(segment_mask) < 100:
-                continue
+       # Параметр альфа: базовый вес для карты MiDaS
+       alpha_base = 0.9  # Вес базовой карты MiDaS (изменяемый параметр)
 
-            # Получаем подизображение и соответствующую часть базовой глубины
-            segment_img = preprocessed[y1:y2, x1:x2].copy()
-            segment_base_depth = base_depth[y1:y2, x1:x2].copy()
+       # На участках с высокой детализацией повышаем влияние сегментационного метода
+       alpha_map = alpha_base - (detail_weight * 0.4)  # Уменьшаем вес MiDaS там, где есть детали
+       alpha_map = np.clip(alpha_map, 0.3, 0.9)  # Ограничиваем диапазон влияния
 
-            # Оценка условий освещения
-            lighting_params = estimate_lighting(segment_img)
+       # Комбинируем карты глубины
+       final_depth = alpha_map * midas_depth + (1 - alpha_map) * segment_depth
 
-            # Разделение альбедо и затенения
-            albedo, shading = separate_albedo_shading(segment_img, lighting_params)
+       # Постобработка
+       artifact_mask = np.zeros_like(preprocessed, dtype=np.uint8)
+       final_depth, model_3d = postprocess_depth(final_depth, preprocessed, artifact_mask)
 
-            # Оценка нормалей поверхности
-            normals, confidence_mask = estimate_normals(shading, lighting_params)
+       # Формируем результаты
+       results = {
+           'preprocessed': preprocessed,
+           'segments_mask': segment_results['segments_mask'],
+           'albedo': segment_results['albedo'],
+           'shading': segment_results['shading'],
+           'normals': segment_results['normals'],
+           'depth_map': midas_depth,  # Карта от MiDaS
+           'segment_depth': segment_depth,  # Карта от сегментационного метода
+           'detail_weight': detail_weight,  # Карта весов деталей
+           'final_depth': final_depth,  # Сплавленная карта
+           'model_3d': model_3d,
+           'bboxes': segment_results['bboxes'],
+           'processing_time': time.time() - start_time
+       }
 
-            # Модификация: используем базовую глубину как начальное приближение
-            # и восстанавливаем только локальные детали
-            segment_details = recover_depth(
-                normals,
-                confidence_mask,
-                iterations=self.iterations // 2,  # Меньше итераций
-                initial_depth=segment_base_depth  # Используем MiDaS как инициализацию
-            )
-
-            # Вычисляем вес деталей на основе уверенности и контраста
-            segment_weight = confidence_mask * np.abs(sobel(segment_img, axis=0)) * np.abs(sobel(segment_img, axis=1))
-            segment_weight = gaussian_filter(segment_weight, sigma=1.0)
-
-            # Нормализуем вес
-            if np.max(segment_weight) > 0:
-                segment_weight = segment_weight / np.max(segment_weight)
-
-            # Добавляем результаты с учетом веса
-            detail_depth[y1:y2, x1:x2] += segment_details * segment_mask * segment_weight
-            detail_weight[y1:y2, x1:x2] += segment_mask * segment_weight
-
-        # Шаг 5: Комбинируем базовую карту и детали
-        # Заменяем ноль на очень маленькое число, чтобы избежать деления на ноль
-        detail_weight = np.maximum(detail_weight, 1e-6)
-
-        # Нормализуем детали
-        detail_depth = detail_depth / detail_weight
-
-        # # Адаптивное смешивание базовой карты и деталей
-        # # Параметр альфа: высокий вес для базовой карты, но на участках с высокой уверенностью
-        # # в деталях повышаем их влияние
-        # alpha_base = 0.7  # Вес базовой карты MiDaS (изменяемый параметр)
-        # alpha_map = alpha_base - (detail_weight * 0.4)  # Уменьшаем вес MiDaS там, где есть хорошие детали
-        # alpha_map = np.clip(alpha_map, 0.3, 0.9)  # Ограничиваем диапазон влияния
-        #
-        # # Комбинируем карты глубины, позволяя деталям только "приближать" объекты
-        # depth_diff = detail_depth - base_depth  # Разница между деталями и базой
-        # positive_diff = np.maximum(0, depth_diff)  # Оставляем только положительные разницы
-        # final_depth = base_depth + (1 - alpha_map) * positive_diff  # Добавляем детали к базовой карте
-        #
-
-        # Параметр альфа: высокий вес для базовой карты, но на участках с высокой уверенностью
-        # в деталях повышаем их влияние
-        alpha_base = 0.7  # Вес базовой карты MiDaS (изменяемый параметр)
-        alpha_map = alpha_base - (detail_weight * 0.4)  # Уменьшаем вес MiDaS там, где есть хорошие детали
-        alpha_map = np.clip(alpha_map, 0.3, 0.9)  # Ограничиваем диапазон влияния
-
-        # Комбинируем карты глубины
-        final_depth = alpha_map * base_depth + (1 - alpha_map) * detail_depth
-
-        # Постобработка
-        final_depth, model_3d = postprocess_depth(final_depth, preprocessed, artifact_mask)
-
-        # Формируем результаты
-        results = {
-            'preprocessed': preprocessed,
-            'segments_mask': segments_mask,
-            'albedo': midas_results['albedo'],  # Используем из MiDaS для простоты
-            'shading': midas_results['shading'],
-            'normals': midas_results['normals'],
-            'depth_map': base_depth,  # Исходная карта от MiDaS
-            'detail_depth': detail_depth,  # Карта деталей
-            'detail_weight': detail_weight,  # Карта весов деталей
-            'final_depth': final_depth,  # Комбинированная карта
-            'model_3d': model_3d,
-            'bboxes': bboxes,
-            'processing_time': time.time() - start_time
-        }
-
-        return results
+       return results
 
     def process(self, image_path):
         start_time = time.time()
