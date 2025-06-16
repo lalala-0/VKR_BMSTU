@@ -147,7 +147,7 @@ class Make3DDataset(DepthDataset):
 
         # Обрабатываем изображение моделью
         results = reconstructor.process_numpy(image)
-        pred_depth = results['depth_map']
+        pred_depth = results['final_depth']
 
         # Приводим к одинаковым размерам
         if pred_depth.shape != gt_depth.shape:
@@ -232,7 +232,7 @@ class SceneNetDataset(DepthDataset):
 
                 # Обработка изображения моделью
                 results = reconstructor.process_numpy(image)
-                pred_depth = results['depth_map']
+                pred_depth = results['final_depth']
 
                 # Вычисление метрик
                 gt_depth = gt_depths[i].squeeze().numpy()
@@ -304,7 +304,7 @@ class NYUDataset(DepthDataset):
         # Обрабатываем изображение
         results = reconstructor.process_numpy(image)
 
-        pred_depth = results.get('final_depth', results.get('depth_map'))
+        pred_depth = results.get('final_depth')
 
         # Приводим к одинаковым размерам
         if pred_depth.shape != gt_depth.shape:
@@ -363,7 +363,7 @@ class LightFieldDataset(DepthDataset):
             img_path = os.path.join(scene_dir, 'input_Cam005.png')
 
             # Карта глубины
-            depth_path = os.path.join(scene_dir, 'gt_disp_lowres.pfm')
+            depth_path = os.path.join(scene_dir, 'gt_depth_lowres.pfm')
 
             if os.path.exists(img_path) and os.path.exists(depth_path):
                 self.image_files.append(img_path)
@@ -402,14 +402,6 @@ class LightFieldDataset(DepthDataset):
             if scale < 0:
                 data = np.flipud(data)
 
-            # Инвертируем карту глубины: далекие объекты становятся близкими и наоборот
-            valid_mask = data > 0
-            if np.any(valid_mask):
-                max_depth = np.max(data)
-                inverted_data = np.zeros_like(data)
-                inverted_data[valid_mask] = max_depth - data[valid_mask]
-                data = inverted_data
-
             return data
 
     def process_sample(self, sample_idx, reconstructor):
@@ -438,8 +430,8 @@ class LightFieldDataset(DepthDataset):
         image = apply_aging_effects(image, self.args)
 
         # Обрабатываем изображение моделью
-        results = reconstructor.process_numpy(image, valid_mask)
-        pred_depth = results['depth_map']
+        results = reconstructor.process_numpy(image)
+        pred_depth = results['final_depth']
 
         # Приводим к одинаковым размерам
         if pred_depth.shape != gt_depth.shape:
@@ -661,12 +653,12 @@ def run_testing(args):
                 if k in metrics_sum:
                     metrics_sum[k] += v
 
-            # Визуализация (каждые 10 изображений или последнее)
-            if i % 10 == 0 or i == sample_count - 1:
-                visualize_depth_results(
-                    result['image'], result['gt_depth'], result['pred_depth'],
-                    os.path.join(vis_dir, f"sample_{i}.png")
-                )
+            # Визуализация результатов и метрик
+            visualize_depth_results(
+                result['image'], result['gt_depth'], result['pred_depth'],
+                os.path.join(vis_dir, f"sample_{i}.png"),
+            )
+
 
             print_metrics_summary(result['metrics'], dataset.dataset_name)
 

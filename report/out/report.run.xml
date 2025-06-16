@@ -55,6 +55,7 @@
       <file>gost-numeric.dbx</file>
       <file>blx-compat.def</file>
       <file>biblatex.def</file>
+      <file>blx-natbib.def</file>
       <file>biblatex-gost.def</file>
       <file>gost-standard.bbx</file>
       <file>gost-numeric.bbx</file>
@@ -86,7 +87,7 @@
       <file>report.bcf</file>
     </requires>
     <requires type="editable">
-      <file>parts/lib.bib</file>
+      <file>lib.bib</file>
     </requires>
   </external>
 </requests>

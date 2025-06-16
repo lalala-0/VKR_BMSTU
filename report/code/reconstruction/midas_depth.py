@@ -1,6 +1,10 @@
 import cv2
 import torch
 import numpy as np
+import warnings
+
+# Подавление предупреждений о депрекации timm.models.layers
+warnings.filterwarnings("ignore", message=".*timm.models.layers is deprecated.*")
 
 def estimate_depth_midas(image, model_type="MiDaS_small"):
     """Оценка глубины с использованием предобученной модели MiDaS"""

@@ -6,156 +6,73 @@
     \begin{lstlisting}[label=lst:preproc,caption=Предварительная обработка изображения,xrightmargin=8pt,xleftmargin=17pt,xleftmargin=17pt]
 import cv2
 import numpy as np
-
-
-def preprocess_archival_photo(image_path, brightness_boost=1.5, contrast_boost=1.2):
-    if isinstance(image_path, str):
-        image = cv2.imread(image_path)
-        if image is not None and len(image.shape) == 3:
-            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    else:
-        image = image_path.copy()
-
-    # Проверяем, является ли изображение цветным или оттенков серого
-    if len(image.shape) == 3:
-        gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
-    else:
-        gray = image.copy()
-
+def preprocess_archival_photo(image, brightness_boost=1.5, contrast_boost=1.2):
     # Выявление и маскирование дефектов
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
     diff = cv2.absdiff(gray, blur)
     _, artifact_mask = cv2.threshold(diff, 25, 255, cv2.THRESH_BINARY)
-
     kernel = np.ones((3, 3), np.uint8)
     artifact_mask = cv2.morphologyEx(artifact_mask, cv2.MORPH_CLOSE, kernel)
     artifact_mask = cv2.dilate(artifact_mask, kernel, iterations=1)
-
     # Инпейнтинг для удаления дефектов
     cleaned = cv2.inpaint(gray, artifact_mask.astype(np.uint8), 3, cv2.INPAINT_TELEA)
-
     # Повышение контраста
     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
     enhanced = clahe.apply(cleaned)
-
     # Повышение яркости
     mean_brightness = np.mean(enhanced)
     target_brightness = 80
-
     brightness_factor = min((target_brightness / (mean_brightness + 1e-6)), brightness_boost)
     brightened = np.clip(enhanced * brightness_factor, 0, 255).astype(np.uint8)
-
     # Улучшение контраста
     alpha = min(contrast_boost, 1.1)
     beta = 128 * (1 - alpha)
-    enhanced_contrast = np.clip(alpha * brightened + beta, 0, 255).astype(np.uint8)
-
-    # Билатеральная фильтрация для сохранения краев при устранении шума
-    denoised = cv2.bilateralFilter(enhanced_contrast, 7, 25, 25)
-
+    contrast = np.clip(alpha * brightened + beta, 0, 255).astype(np.uint8)
+    # Билатеральная фильтрация для сохранения краев
+    denoised = cv2.bilateralFilter(contrast, 7, 25, 25)
     # Нормализация до [0, 1]
     preprocessed = denoised.astype(np.float32) / 255.0
-
     # Гамма-коррекция для улучшения контраста в средних тонах
-    gamma = 1.1
-    preprocessed = np.power(preprocessed, gamma)
-
+    preprocessed = np.power(preprocessed, 1.1)
     return preprocessed, artifact_mask
     \end{lstlisting}
 \end{center}
 
 Листинг~\ref{lst:depth_extract} иллюстрирует основной алгоритм извлечения глубины, который объединяет нейросетевой метод для первичной оценки глубины с последующим уточнением деталей.
 
-\newpage
-
 \begin{center}
     \begin{lstlisting}[label=lst:depth_extract,caption=Извлечение глубины из подготовленного изображения]
 import numpy as np
 import cv2
-
 from scipy.ndimage import gaussian_filter, sobel
-
-def depth_extract(self, image_path):
-
-    # Шаг 1: Получение базовой карты глубины
-    print("Получение базовой карты глубины через MiDaS...")
-    midas_results = self.process_midas(image_path)
+def depth_extract(self, preprocessed):
+    # Шаг 1: Получение базовой карты глубин
+    midas_results = self.process_midas(preprocessed)
     base_depth = midas_results['depth_map']
-    preprocessed = midas_results['preprocessed']
     artifact_mask = np.zeros_like(preprocessed, dtype=np.uint8)
-
     # Шаг 2: Сегментация изображения
-    print("Сегментация изображения для детализации...")
-    segments_mask, bboxes = segment_by_color(
-        preprocessed,
-        self.n_color_segments
-    )
-
+    segments_mask, bboxes = segment_by_color(preprocessed)
     # Шаг 3: Инициализация карт деталей
     detail_depth = np.zeros_like(base_depth)
     detail_weight = np.zeros_like(base_depth)
-
     # Шаг 4: Цикл по сегментам
-    print("Детализация каждого сегмента...")
-    for segment_id, bbox in bboxes.items():
+    for segm_id, bbox in bboxes.items():
         y1, y2, x1, x2 = bbox
-
-        segment_mask = (segments_mask[y1:y2, x1:x2] == segment_id).astype(np.float32)
-
-        # Пропускаем слишком маленькие сегменты
-        if np.sum(segment_mask) < 100:
-            continue
-
-        segment_img = preprocessed[y1:y2, x1:x2].copy()
-        segment_base_depth = base_depth[y1:y2, x1:x2].copy()
-
-        # Оценка условий освещения
-        lighting_params = estimate_lighting(segment_img)
-
-        # Разделение альбедо и затенения
-        albedo, shading = separate_albedo_shading(segment_img, lighting_params)
-
-        # Оценка нормалей поверхности
-        normals, confidence_mask = estimate_normals(shading, lighting_params)
-
-        # Восстановление деталей
-        segment_details = recover_depth(
-            normals,
-            confidence_mask,
-            iterations=self.iterations // 2,
-            initial_depth=segment_base_depth
-        )
-
-        segment_weight = confidence_mask * np.abs(sobel(segment_img, axis=0)) * np.abs(sobel(segment_img, axis=1))
-        segment_weight = gaussian_filter(segment_weight, sigma=1.0)
-        if np.max(segment_weight) > 0:
-            segment_weight = segment_weight / np.max(segment_weight)
-        detail_depth[y1:y2, x1:x2] += segment_details * segment_mask * segment_weight
-        detail_weight[y1:y2, x1:x2] += segment_mask * segment_weight
-
+        segm_mask = (segments_mask[y1:y2, x1:x2] == segm_id)
+        segm_img = preprocessed[y1:y2, x1:x2].copy()
+        light_params = estimate_lighting(segm_img)
+        shading = separate_albedo_shading(segm_img, light_params)
+        normals, conf_mask = estimate_normals(shading, light_params)
+        segm_details = recover_depth(normals, conf_mask)
+        segm_weight = conf_mask * np.abs(sobel(segm_img, axis=0)) * np.abs(sobel(segm_img, axis=1))
+        segm_weight = gaussian_filter(segm_weight,1)
+        detail_depth[y1:y2, x1:x2] += segm_details * segm_mask * segm_weight
+        detail_weight[y1:y2, x1:x2] += segm_mask * segm_weight
     # Шаг 5: Комбинация базовой карты и деталей
-    detail_weight = np.maximum(detail_weight, 1e-6)
     detail_depth = detail_depth / detail_weight
-
-    alpha_base = 0.7
-    alpha_map = alpha_base - (detail_weight * 0.4)
-    alpha_map = np.clip(alpha_map, 0.3, 0.9)
-
-    final_depth = alpha_map * base_depth + (1 - alpha_map) * detail_depth
-
-
-    # Формирование результатов
-    results = {
-        'preprocessed': preprocessed,
-        'segments_mask': segments_mask,
-        'depth_map': base_depth,
-        'detail_depth': detail_depth,
-        'detail_weight': detail_weight,
-        'final_depth': final_depth,
-        'bboxes': bboxes,
-    }
-
-    return results
+    alpha = 0.9 - (detail_weight * 0.4)
+    res_depth = alpha * base_depth + (1 - alpha) * detail_depth
+    return res_depth
     \end{lstlisting}
 \end{center}
 
@@ -167,63 +84,35 @@ import cv2
 import numpy as np
 from skimage.measure import regionprops
 from sklearn.cluster import KMeans
-
-def segmentation(img, n_color_segments=6):
-    # Преобразование изображения в цветное
-    if len(img.shape) == 2:
-        image_for_cluster = np.stack([img] * 3, axis=2)
-    else:
-        image_for_cluster = img.copy()
-
+def segmentation(image_for_cluster, n_color_segments=6):
     pixels = image_for_cluster.reshape(-1, 3)
-
     # Группировка пикселей по цветам
     kmeans = KMeans(n_clusters=n_color_segments, random_state=42, n_init=10)
     labels = kmeans.fit_predict(pixels)
-
     segmented = labels.reshape(img.shape[:2])
-
     h, w = segmented.shape[:2]
-    bboxes = {}
-
     # Цикл по цветовым сегментам
     for label in range(n_color_segments):
         # Создание бинарной маски для текущего цвета
         mask = (segmented == label).astype(np.uint8)
-
         # Поиск связных компонентов
         num_labels, labels_img = cv2.connectedComponents(mask)
-
         for region_id in range(1, num_labels):
-            region_mask = (labels_img == region_id).astype(np.uint8)
-
+            region_mask = (labels_img == region_id)
             # Получение прямоугольной ограничивающей рамки
             props = regionprops(region_mask)
-            if not props:
-                continue
-
             y1, x1, y2, x2 = props[0].bbox
-
-            margin = 5
-            y1 = max(0, y1 - margin)
-            y2 = min(h, y2 + margin)
-            x1 = max(0, x1 - margin)
-            x2 = min(w, x2 + margin)
-
+            y1, y2 = max(0, y1 - margin), min(h, y2 + margin)
+            x1, x2 = max(0, x1 - margin), min(w, x2 + margin)
             # Если область слишком маленькая, она пропускается
             if (y2 - y1) < 20 or (x2 - x1) < 20:
                 continue
-
-            # Создание уникального идентификатора для этого прямоугольного сегмента
+            # Создание уникального идентификатора для сегмента
             segment_id = label * 1000 + region_id
-
             segmented[y1:y2, x1:x2][region_mask[y1:y2, x1:x2] > 0] = segment_id
-
             # Сохранение ограничивающей рамки
             bboxes[segment_id] = (y1, y2, x1, x2)
-
     return segmented, bboxes
-
     \end{lstlisting}
 \end{center}
 
@@ -233,49 +122,36 @@ def segmentation(img, n_color_segments=6):
     \begin{lstlisting}[label=lst:light_estimation,caption=Оценка освещения]
 import cv2
 import numpy as np
-
-
 def estimate_lighting(image):
     # Расчет гистограммы
     hist = cv2.calcHist([image * 255], [0], None, [256], [0, 256])
     hist_normalized = hist / (image.shape[0] * image.shape[1])
-
     # Расчёт статистики яркости
     brightness_mean = np.mean(image)
     brightness_std = np.std(image)
-
     # Вычисление градиентов
     grad_x = cv2.Sobel(image, cv2.CV_32F, 1, 0, ksize=5)
     grad_y = cv2.Sobel(image, cv2.CV_32F, 0, 1, ksize=5)
     gradient_magnitude = np.sqrt(grad_x ** 2 + grad_y ** 2)
-
     # Определение области с постоянным освещением
     smooth_regions = gradient_magnitude < np.percentile(gradient_magnitude, 25)
-
     # Расчёт средних градиентов градиентам
     avg_grad_x = np.mean(grad_x)
     avg_grad_y = np.mean(grad_y)
-
     light_x = -avg_grad_x
     light_y = -avg_grad_y
     light_z = 1.0
-
     # Оценка вектора направления света
     light_direction = np.array([light_x, light_y, light_z])
     norm = np.linalg.norm(light_direction)
     if norm > 0:
         light_direction = light_direction / norm
-
     lighting_params = {
         'direction': light_direction,
         'brightness_mean': brightness_mean,
         'brightness_std': brightness_std,
-        'hist': hist_normalized,
-        'smooth_regions': smooth_regions
-    }
-
+        'hist': hist_normalized}
     return lighting_params
-
     \end{lstlisting}
 \end{center}
 
@@ -285,49 +161,35 @@ def estimate_lighting(image):
     \begin{lstlisting}[label=lst:albedo_separation,caption=Разделение альбедо и затенения]
 import numpy as np
 from scipy.ndimage import gaussian_filter
-
 def separate_albedo_shading(image, lighting_params):
     # Усиление деталей
     log_image = np.log1p(image)
-
     # Вычисление коэффициента фильтра Гаусса
     sigma_large = max(image.shape) * 0.08
     sigma_small = max(image.shape) * 0.02
-
     # Применение фильтра Гаусса
     illumination_large = gaussian_filter(log_image, sigma=sigma_large)
     illumination_small = gaussian_filter(log_image, sigma=sigma_small)
-
     illumination = 0.7 * illumination_large + 0.3 * illumination_small
-
     # Вычитание компоненты освещения
     log_albedo = log_image - illumination
-
     # Восстанавление альбедо
     albedo = np.exp(log_albedo) - 1.0
-
     albedo = np.clip(albedo, 0.01, 1.0)
-
     # Нормализация альбедо
     p_low, p_high = np.percentile(albedo, [2, 98])
     albedo_norm = (albedo - p_low) / (p_high - p_low + 1e-6)
     albedo = np.clip(albedo_norm, 0.01, 1.0)
-
     # Вычисление затенения
     shading = image / (albedo + 1e-6)
-
     # Нормализация затенение
     shading = np.clip(shading, 0.01, 1.0)
-
     p_low, p_high = np.percentile(shading, [2, 98])
     shading = (shading - p_low) / (p_high - p_low + 1e-6)
     shading = np.clip(shading, 0.01, 1.0)
-
     # Сглаживание затенения
     shading = gaussian_filter(shading, sigma=1.0)
-
     return albedo, shading
-
     \end{lstlisting}
 \end{center}
 
@@ -338,52 +200,38 @@ def separate_albedo_shading(image, lighting_params):
 import cv2
 import numpy as np
 from scipy.ndimage import gaussian_filter
-
 def estimate_normals(shading, lighting_params):
     h, w = shading.shape
     light_direction = lighting_params['direction']
-
     normals = np.zeros((h, w, 3), dtype=np.float32)
-
     # Оценка градиентов
     grad_x = cv2.Sobel(shading, cv2.CV_32F, 1, 0, ksize=3)
     grad_y = cv2.Sobel(shading, cv2.CV_32F, 0, 1, ksize=3)
-
     # Расчет коэффициента масштабирования градиентов
     brightness_std = lighting_params['brightness_std']
     alpha = 0.2 * (1.0 / (brightness_std + 0.05))
-
     # Расчет нормалей
     normals[:, :, 0] = -alpha * grad_x
     normals[:, :, 1] = -alpha * grad_y
     normals[:, :, 2] = 1.0
-
     # Сглаживание нормалей
     for c in range(3):
-        normals[:, :, c] = gaussian_filter(normals[:, :, c], sigma=0.8)
-
+        normals[:, :, c] = gaussian_filter(normals[:, :, c], 0.8)
     # Нормализация
     norm = np.sqrt(np.sum(normals ** 2, axis=2, keepdims=True))
     normals = normals / (norm + 1e-10)
-
     gradient_magnitude = np.sqrt(grad_x ** 2 + grad_y ** 2)
     max_magnitude = np.max(gradient_magnitude)
     if max_magnitude > 0:
         gradient_magnitude = gradient_magnitude / max_magnitude
-
     edge_correction = 1.0 - gradient_magnitude ** 2
     edge_correction = np.clip(edge_correction, 0.1, 1.0)
-
     confidence_mask = gradient_magnitude * edge_correction
-
     brightness_weight = np.clip(shading * 1.5, 0.3, 1.0)
     confidence_mask = confidence_mask * brightness_weight
-
     # Сглаживание маски
-    confidence_mask = gaussian_filter(confidence_mask, sigma=1.5)
-
+    confidence_mask = gaussian_filter(confidence_mask, 1.5)
     return normals, confidence_mask
-
     \end{lstlisting}
 \end{center}
 
@@ -393,70 +241,36 @@ def estimate_normals(shading, lighting_params):
     \begin{lstlisting}[label=lst:depth_integration,caption=Восстановление карты глубин по нормалям]
 import cv2
 import numpy as np
-
-def recover_depth(normals, confidence_mask, iterations=200, initial_depth=None):
+def recover_depth(normals, confidence_mask):
     h, w = normals.shape[:2]
-
     # Извлечение нормалей
-    nx = normals[:, :, 0]
-    ny = normals[:, :, 1]
-    nz = normals[:, :, 2] + 1e-10
-
-    # Вычисление градиентов
-    p = -nx / nz
-    q = -ny / nz
-
-    # Сглаживание градиентов
+    nx, ny, nz = normals[:,:,0], normals[:,:,1], normals[:,:,2]
+    # Вычисление и сглаживание градиентов
+    p, q = -nx / nz, -ny / nz
     p_smooth = cv2.bilateralFilter(p, 5, 0.1, 5)
     q_smooth = cv2.bilateralFilter(q, 5, 0.1, 5)
-
-    # Обновление градиентов
     p = p_smooth * confidence_mask + p * (1 - confidence_mask)
     q = q_smooth * confidence_mask + q * (1 - confidence_mask)
-
-    # Инициализация карты глубин
-    if initial_depth is not None:
-        depth = initial_depth.copy()
-    else:
-        depth = np.zeros((h, w), dtype=np.float32)
-
+    depth = np.zeros((h, w), dtype=np.float32)
     # Итеративное уточнение глубины
     for iter in range(iterations):
-        depth_x = np.zeros_like(depth)
-        depth_y = np.zeros_like(depth)
-
-        # Вычисление разностей глубины
+        depth_x, depth_y = np.zeros_like(depth), np.zeros_like(depth)
         depth_x[:, 1:] = depth[:, 1:] - depth[:, :-1]
         depth_y[1:, :] = depth[1:, :] - depth[:-1, :]
-
-        # Вычисление ошибок
-        error_x = depth_x - p
-        error_y = depth_y - q
-
+        error_x, error_y = depth_x - p, depth_y - q
         update = np.zeros_like(depth)
-
         update[:-1, :] += error_y[:-1, :]
         update[:, :-1] += error_x[:, :-1]
         update[1:, :] -= error_y[1:, :]
         update[:, 1:] -= error_x[:, 1:]
-
-        # Обновление карты глубин
         update_weight = 0.5 / iterations
         weighted_update = update * update_weight * confidence_mask
         depth += weighted_update
-
-    depth = cv2.bilateralFilter(depth.astype(np.float32), 9, 75, 75)
-
+    depth = cv2.bilateralFilter(depth,9,75,75)
     # Нормализация
     p_low, p_high = np.percentile(depth, [2, 98])
-    depth = (depth - p_low) / (p_high - p_low + 1e-6)
-    depth = np.clip(depth, 0, 1)
-
-    depth_map = np.power(depth, 0.85)
-
-    depth_map = (depth_map - depth_map.min()) / (depth_map.max() - depth_map.min() + 1e-6)
-
-    return depth_map
+    depth = (depth - p_low) / (p_high - p_low)
+    return depth
     \end{lstlisting}
 \end{center}
 

@@ -34,27 +34,42 @@ class ArchivalDepthReconstruction:
 
     def process_segmentation(self, image_array):
         # Предобработка изображения
-        preprocessed, artifact_mask = preprocess_archival_photo(
-            image_array,
-            self.brightness_boost,
-            self.contrast_boost
-        )
+        try:
+            preprocessed, artifact_mask = preprocess_archival_photo(
+                image_array,
+                self.brightness_boost,
+                self.contrast_boost
+            )
+        except Exception as e:
+            print(f"Ошибка при предобработке: {e}")
+            return None
 
         # Получаем цветовые сегменты
-        segments_mask, bboxes = segment_by_color(
-            preprocessed,
-            self.n_color_segments
-        )
+        try:
+            segments_mask, bboxes = segment_by_color(
+                preprocessed,
+                self.n_color_segments
+            )
+
+        except Exception as e:
+            print(f"Ошибка при сегментации: {e}")
+            return None
+        preprocessed = cv2.cvtColor(preprocessed, cv2.COLOR_RGB2GRAY)
 
         # Инициализируем карты для хранения результатов
-        depth_map = np.zeros_like(preprocessed)
-        albedo_map = np.zeros_like(preprocessed)
-        shading_map = np.zeros_like(preprocessed)
+        depth_map = np.zeros_like(preprocessed, dtype=np.float32)
+        albedo_map = np.zeros_like(preprocessed, dtype=np.float32)
+        shading_map = np.zeros_like(preprocessed, dtype=np.float32)
         normals_map = np.zeros((preprocessed.shape[0], preprocessed.shape[1], 3), dtype=np.float32)
 
         # Обрабатываем каждый прямоугольный сегмент
         for segment_id, bbox in bboxes.items():
             y1, y2, x1, x2 = bbox
+
+            # Проверка валидности границ
+            if y1 >= y2 or x1 >= x2 or y2 > preprocessed.shape[0] or x2 > preprocessed.shape[1]:
+                print(f"Пропуск сегмента {segment_id} из-за невалидных границ: {bbox}")
+                continue
 
             # Создаем маску для текущего сегмента
             segment_mask = (segments_mask[y1:y2, x1:x2] == segment_id).astype(np.float32)
@@ -70,37 +85,70 @@ class ArchivalDepthReconstruction:
             lighting_params = estimate_lighting(segment_img)
 
             # Разделение альбедо и затенения
-            albedo, shading = separate_albedo_shading(segment_img, lighting_params)
+            albedo, shading, smooth_shadow_mask = separate_albedo_shading(segment_img, lighting_params)
+
+            # Проверка размерностей
+            if albedo.shape[:2] != segment_mask.shape:
+                albedo = cv2.resize(albedo, (segment_mask.shape[1], segment_mask.shape[0]))
+            if shading.shape != segment_mask.shape:
+                shading = cv2.resize(shading, (segment_mask.shape[1], segment_mask.shape[0]))
 
             # Оценка нормалей поверхности
-            normals, confidence_mask = estimate_normals(shading, lighting_params)
+            normals, confidence_mask = estimate_normals(shading, lighting_params, smooth_shadow_mask)
+
+            # Проверка размерностей для нормалей
+            if normals.shape[:2] != segment_mask.shape:
+                normals_resized = np.zeros((segment_mask.shape[0], segment_mask.shape[1], 3), dtype=np.float32)
+                for c in range(3):
+                    normals_resized[:,:,c] = cv2.resize(normals[:,:,c],
+                                                     (segment_mask.shape[1], segment_mask.shape[0]))
+                normals = normals_resized
 
             # Восстановление карты глубины
             segment_depth = recover_depth(normals, confidence_mask, self.iterations)
 
+            # Проверка размерности карты глубины
+            if segment_depth.shape != segment_mask.shape:
+                segment_depth = cv2.resize(segment_depth, (segment_mask.shape[1], segment_mask.shape[0]))
+
             # Добавляем результаты в общую карту с учетом маски сегмента
             depth_map[y1:y2, x1:x2] += segment_depth * segment_mask
-            albedo_map[y1:y2, x1:x2] += albedo * segment_mask
+
+            # Проверяем размерности для альбедо
+            albedo_map[y1:y2, x1:x2] += albedo * np.expand_dims(segment_mask, axis=-1)[:,:,0]
             shading_map[y1:y2, x1:x2] += shading * segment_mask
 
             # Добавляем нормали
             for c in range(3):
-                normals_map[y1:y2, x1:x2, c] += normals[:, :, c] * segment_mask
+                normals_map[y1:y2, x1:x2, c] += normals[:,:,c] * segment_mask
+
+
 
         # Нормализуем карту глубины
         non_zero_mask = depth_map > 0
         if np.any(non_zero_mask):
-            depth_map[non_zero_mask] = (depth_map[non_zero_mask] - depth_map[non_zero_mask].min()) / \
-                                       (depth_map[non_zero_mask].max() - depth_map[non_zero_mask].min() + 1e-6)
+            depth_min = depth_map[non_zero_mask].min()
+            depth_max = depth_map[non_zero_mask].max()
+            depth_range = depth_max - depth_min
+            if depth_range > 1e-6:
+                depth_map[non_zero_mask] = (depth_map[non_zero_mask] - depth_min) / depth_range
+            else:
+                depth_map[non_zero_mask] = 0.5  # Устанавливаем среднее значение при маленьком диапазоне
 
         # Заполняем пробелы в карте глубины
         if np.any(depth_map == 0):
             valid_mask = (depth_map > 0).astype(np.uint8)
-            depth_map = cv2.inpaint(depth_map.astype(np.float32), (valid_mask == 0).astype(np.uint8), 3,
-                                    cv2.INPAINT_TELEA)
+            depth_map = cv2.inpaint(depth_map.astype(np.float32),
+                                   (valid_mask == 0).astype(np.uint8), 3,
+                                   cv2.INPAINT_TELEA)
 
-        # Постобработка
-        final_depth, model_3d = postprocess_depth(depth_map, preprocessed, artifact_mask)
+        try:
+            # Постобработка
+            final_depth, model_3d = postprocess_depth(depth_map, preprocessed, artifact_mask)
+        except Exception as e:
+            print(f"Ошибка при постобработке: {e}")
+            final_depth = depth_map
+            model_3d = None
 
         # Формируем результаты
         results = {
@@ -116,7 +164,6 @@ class ArchivalDepthReconstruction:
         }
 
         return results
-
     def process_midas(self, image_array):
         # Предобработка изображения
         preprocessed, artifact_mask = preprocess_archival_photo(
@@ -124,11 +171,11 @@ class ArchivalDepthReconstruction:
             self.brightness_boost,
             self.contrast_boost
         )
-        # Получаем сегменты для визуализации
-        segments_mask, bboxes = segment_by_color(
-            preprocessed,
-            self.n_color_segments
-        )
+        # # Получаем сегменты для визуализации
+        # segments_mask, bboxes = segment_by_color(
+        #     preprocessed,
+        #     self.n_color_segments
+        # )
 
         # Оценка глубины с помощью MiDaS
         print(f"Восстановление глубины с помощью MiDaS ({self.midas_model})...")
@@ -146,14 +193,12 @@ class ArchivalDepthReconstruction:
         # Формируем результаты
         results = {
             'preprocessed': preprocessed,
-            'segments_mask': segments_mask,
             'albedo': albedo_map,
             'shading': shading_map,
             'normals': normals_map,
             'depth_map': depth_map,
             'final_depth': final_depth,
             'model_3d': model_3d,
-            'bboxes': bboxes
         }
 
         return results
@@ -199,7 +244,7 @@ class ArchivalDepthReconstruction:
        final_depth = alpha_map * midas_depth + (1 - alpha_map) * segment_depth
 
        # Постобработка
-       artifact_mask = np.zeros_like(preprocessed, dtype=np.uint8)
+       artifact_mask = np.zeros((preprocessed.shape[0], preprocessed.shape[1]), dtype=np.uint8)
        final_depth, model_3d = postprocess_depth(final_depth, preprocessed, artifact_mask)
 
        # Формируем результаты

@@ -126,7 +126,7 @@ def compare_depth_methods(image_path, output_dir="./comparison"):
 
         # Выводим результаты
         print("\n=== Результаты сравнения методов ===")
-        print(f"{'Метод':<15} {'Время (с)':<10} {'Края':<10} {'Гладкость':<10} {'Градиенты':<10} {'Общая оценка':<10}")
+        print(f"{'Метод':<15} {'Время (с)':<10}")
         print("-" * 65)
 
         for method_name in methods.keys():
@@ -137,7 +137,7 @@ def compare_depth_methods(image_path, output_dir="./comparison"):
             grad = metrics.get('gradient_consistency', 0)
             overall = metrics.get('overall_score', 0)
 
-            print(f"{method_name:<15} {time_sec:<10.2f} {edge:<10.3f} {smooth:<10.3f} {grad:<10.3f} {overall:<10.3f}")
+            print(f"{method_name:<15} {time_sec:<10.2f}")
 
         # Визуальное сравнение
         fig, axes = plt.subplots(2, 2, figsize=(12, 10))

@@ -25,16 +25,17 @@ def visualize_depth_results(image, gt_depth, pred_depth, output_path):
 
     plt.subplot(1, 3, 2)
     plt.imshow(gt_depth, cmap='plasma')
-    plt.title('Эталонная глубина')
+    plt.title('Эталонная карта глубин')
     plt.axis('off')
 
     plt.subplot(1, 3, 3)
     plt.imshow(pred_depth, cmap='plasma')
-    plt.title('Предсказанная глубина')
+    plt.title('Полученная карта глубин')
     plt.axis('off')
 
     plt.tight_layout()
     plt.savefig(output_path)
+    plt.show()
     plt.close()
 
 

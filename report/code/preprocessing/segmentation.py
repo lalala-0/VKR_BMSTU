@@ -45,9 +45,6 @@ def segment_by_color(img, n_color_segments=6):
         # Создаем бинарную маску для текущего цвета
         mask = (segmented == label).astype(np.uint8)
 
-        # Находим все связные компоненты для этого цвета
-        num_labels, labels_img = cv2.connectedComponents(mask)
-
         # Ищем контуры вместо использования regionprops
         contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
@@ -82,3 +79,4 @@ def segment_by_color(img, n_color_segments=6):
             bboxes[segment_id] = (y1, y2, x1, x2)
 
     return segmented, bboxes
+

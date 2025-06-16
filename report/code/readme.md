@@ -3,7 +3,7 @@
 
 ## Метод сегментации (по умолчанию)
 
-`python main.py --image_path "E:\\VKR_BMSTU\\report\\code\\img\\testimg5.png" --method segmentation`
+`python main.py --image_path "D:\\VKR_BMSTU\\report\\code\\img\\primitiv.jpg" --method segmentation`
 
 Параметры:
 - segments или -s: количество цветовых сегментов (по умолчанию: 8)
@@ -21,7 +21,7 @@
 
 ## Гибридный метод (MiDaS + сегментация)
 
-`python main.py --image_path "D:\\VKR_BMSTU\\report\\code\\img\\ex.jpg" --method hybrid`
+`python main.py --image_path "D:\\VKR_BMSTU\\report\\code\\img\\primitiv.jpg" --method hybrid`
 
 
 **Общие параметры для всех методов**

@@ -82,9 +82,6 @@ def apply_noise(image, intensity=0.2):
     Returns:
         Изображение с добавленным шумом
     """
-    # Исходное изображение
-    original = image.copy()
-
     # Создаем случайный шум
     noise = np.zeros_like(image, dtype=np.float32)
     cv2.randn(noise, 0, 255 * intensity)

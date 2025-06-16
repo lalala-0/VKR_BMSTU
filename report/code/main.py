@@ -123,22 +123,112 @@ def main():
 
     # Показываем результаты, если требуется
     if not args.no_display:
-        cv2.imshow("Original", visualization['preprocessed'])
-        cv2.imshow("Depth Colored", visualization['depth_colored'])
-        cv2.imshow("Relief", visualization['relief_colored'])
-        if args.method in ['segmentation', 'hybrid']:
-            cv2.imshow("Segments", visualization['segments'])
+        import matplotlib.pyplot as plt
+        plt.figure(figsize=(16, 8))
+
+        # Создаем два подграфика в одной строке
+        plt.subplot(1, 2, 1)
+        img = plt.imread(args.image_path)
+        plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB) if len(img.shape) == 3 and img.shape[2] == 3 else img)
+        plt.title("Исходное изображение")
+        plt.axis('off')
+        #
+        # plt.subplot(1, 3, 2)
+        # plt.imshow(results['depth_map'], cmap='plasma')
+        # plt.title("Карта глубин MiDaS")
+        # plt.axis('off')
+
+
+        plt.subplot(1, 2, 2)
+        plt.imshow(visualization['depth'], cmap='plasma')
+        plt.title("Карта глубин")
+        plt.axis('off')
+
+        plt.tight_layout()
+        plt.show()
+    # # Показываем результаты, если требуется
+    # if not args.no_display:
+    #     cv2.imshow("Исходное изображение", visualization['preprocessed'])
+    #     cv2.imshow("Карта глубин MiDaS", results['depth_map'])
+    #     cv2.imshow("Карта глубин", visualization['depth_colored'])
+
+        # cv2.imshow("Relief", visualization['relief_colored'])
+        # if args.method in ['segmentation', 'hybrid']:
+        #     cv2.imshow("Segments", visualization['segments'])
+        # if args.method in ['segmentation', 'hybrid']:
+        #     cv2.imshow("Segments", visualization['segments'])
 
         print(f"Время обработки: {results['processing_time']:.2f} секунд")
         print("Нажмите любую клавишу для закрытия окон...")
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
+    # # Показываем результаты, если требуется
+    # if not args.no_display:
+    #     import matplotlib.pyplot as plt
+    #
+    #     # Определяем количество изображений для отображения
+    #     num_images = 5  # базовые изображения
+    #     if args.method in ['segmentation', 'hybrid']:
+    #         num_images += 3  # добавляем сегменты, альбедо и затенение
+    #
+    #     # Определяем размер сетки
+    #     rows = (num_images + 1) // 2  # примерно 2 столбца
+    #     cols = 2
+    #
+    #     plt.figure(figsize=(12, 10))
+    #
+    #     # Добавляем изображения в сетку
+    #     plt.subplot(rows, cols, 1)
+    #     plt.imshow(cv2.cvtColor(visualization['preprocessed'], cv2.COLOR_BGR2RGB))
+    #     plt.title("Оригинал")
+    #     plt.axis('off')
+    #
+    #     # plt.subplot(rows, cols, 2)
+    #     # plt.imshow(visualization['depth'], cmap='gray')
+    #     # plt.title("Карта глубин")
+    #     # plt.axis('off')
+    #     #
+    #     plt.subplot(rows, cols, 2)
+    #     plt.imshow(visualization['depth_colored'], cmap='plasma')
+    #     plt.imshow(visualization['depth_colored'], cmap='plasma')
+    #     plt.title("Карта глубин")
+    #     plt.axis('off')
+    #
+    #     # plt.subplot(rows, cols, 4)
+    #     # plt.imshow(visualization['relief_colored'])
+    #     # plt.title("Рельеф")
+    #     # plt.axis('off')
+    #
+    #     plt.subplot(rows, cols, 3)
+    #     plt.imshow(cv2.cvtColor(visualization['normals'], cv2.COLOR_BGR2RGB))
+    #     plt.title("Нормали")
+    #     plt.axis('off')
+    #
+    #     # Отображаем карты из модели Intrinsic Decomposition
+    #     if args.method in ['segmentation', 'hybrid']:
+    #         plt.subplot(rows, cols, 4)
+    #         plt.imshow(visualization['segments'])
+    #         plt.title("Сегменты")
+    #         plt.axis('off')
+    #
+    #         plt.subplot(rows, cols, 5)
+    #         plt.imshow(cv2.cvtColor(visualization['albedo'], cv2.COLOR_BGR2RGB))
+    #         plt.title("Альбедо")
+    #         plt.axis('off')
+    #
+    #         plt.subplot(rows, cols, 6)
+    #         plt.imshow(cv2.cvtColor(visualization['shading'], cv2.COLOR_BGR2RGB))
+    #         plt.title("Затенение")
+    #         plt.axis('off')
+    #
+    #     plt.tight_layout()
+    #     print(f"Время обработки: {results['processing_time']:.2f} секунд")
+    #     print("Закройте окно с графиком для продолжения...")
+    #     plt.show()
+
     # Сохраняем результаты
     save_results(visualization, args.output)
-
-
-
 
 if __name__ == "__main__":
     main()

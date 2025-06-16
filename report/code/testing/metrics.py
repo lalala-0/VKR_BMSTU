@@ -49,7 +49,7 @@ def compute_depth_metrics(pred_depth, gt_depth, mask=None):
     # Относительная абсолютная ошибка (REL) - с медианным масштабированием
     valid_gt = gt_median > eps
     if np.any(valid_gt):
-        rel = np.mean(np.abs(pred_median[valid_gt] - gt_median[valid_gt]) / gt_median[valid_gt]) / 10
+        rel = np.mean(np.abs(pred_median[valid_gt] - gt_median[valid_gt]) / gt_median[valid_gt])
     else:
         rel = np.nan
 

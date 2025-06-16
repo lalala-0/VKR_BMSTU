@@ -1,3 +1,22 @@
-\renewcommand\contentsname{СОДЕРЖАНИЕ}
+\makeatother
 
-\tableofcontents
+     % Добавление точек для глав в содержании
+     \makeatletter
+     \renewcommand*\l@chapter[2]{%
+       \ifnum \c@tocdepth >\m@ne
+         \vskip 1.0em \@plus\p@
+         \setlength\@tempdima{1.5em}%
+         \begingroup
+           \parindent \z@ \rightskip \@pnumwidth
+           \parfillskip -\@pnumwidth
+           \leavevmode \bfseries
+           \advance\leftskip\@tempdima
+           \hskip -\leftskip
+           #1\nobreak
+           \leaders\hbox{$\m@th\mkern \@dotsep mu\box{.}\mkern \@dotsep mu$}\hfill
+           \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+         \endgroup
+       \fi}
+     \makeatother
+
+     \tableofcontents
